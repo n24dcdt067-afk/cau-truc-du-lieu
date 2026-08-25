@@ -28,7 +28,7 @@ int main() {
 
     ifstream f("hoa30.txt");
     if (!f.is_open()) {
-        cerr << "Khong the mo tep hoa30.txt\n";
+        cout << "Loi: Khong mo duoc hoa30.txt\n";
         return 1;
     }
 
