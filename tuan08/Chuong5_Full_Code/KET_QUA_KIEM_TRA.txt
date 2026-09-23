@@ -1,0 +1,62 @@
+KIỂM CHỨNG BẢN PHÂN PHỐI
+Python thực thi: 3.13.5, Linux.
+Đáp án Python: 42 tests, OK.
+Mẫu sinh viên Python: 25 tests cơ bản, OK.
+Bốn hàm bài tập của gói sinh viên cố ý báo chưa hoàn thành (HTTP 422).
+Julia: CHƯA THỰC THI; không có kết quả kiểm thử Julia để báo cáo.
+Không kiểm chứng mọi phiên bản, hệ điều hành hoặc thao tác lưu tệp qua hộp thoại OS.
+
+HTTP Python: static assets, CSP headers, path allowlist, Host/Origin/token checks, bad JSON/content-type, invalid input and unchanged state: passed.
+Student Python: application starts; four homework buttons report not implemented (HTTP 422); basic insert remains functional: passed.
+
+Export data entries: 19
+UI passed: insertion, count, delete all, stack batch, invalid k, wraparound, FIFO peek, bracket trace, JSON log data, mobile overflow (DOM rendering and real API through local bridge). JS errors: []
+
+LOG KIỂM THỬ PYTHON BẢN ĐÁP ÁN
+test_chen_sau (test_co_ban.TestDanhSach.test_chen_sau) ... ok
+test_dao_giu_nguyen_doi_tuong_nut (test_co_ban.TestDanhSach.test_dao_giu_nguyen_doi_tuong_nut) ... ok
+test_dao_rong_mot_nut (test_co_ban.TestDanhSach.test_dao_rong_mot_nut) ... ok
+test_ngau_nhien_co_seed (test_co_ban.TestDanhSach.test_ngau_nhien_co_seed) ... ok
+test_phat_hien_chu_trinh (test_co_ban.TestDanhSach.test_phat_hien_chu_trinh) ... ok
+test_phat_hien_n_sai (test_co_ban.TestDanhSach.test_phat_hien_n_sai) ... ok
+test_rong (test_co_ban.TestDanhSach.test_rong) ... ok
+test_them_dau_cuoi (test_co_ban.TestDanhSach.test_them_dau_cuoi) ... ok
+test_xoa_chi_mot_gia_tri_trung (test_co_ban.TestDanhSach.test_xoa_chi_mot_gia_tri_trung) ... ok
+test_xoa_dau_cuoi_giua (test_co_ban.TestDanhSach.test_xoa_dau_cuoi_giua) ... ok
+test_day_khong_ghi_de (test_co_ban.TestHangDoi.test_day_khong_ghi_de) ... ok
+test_ngau_nhien_co_seed (test_co_ban.TestHangDoi.test_ngau_nhien_co_seed) ... ok
+test_quay_vong_va_o_cu (test_co_ban.TestHangDoi.test_quay_vong_va_o_cu) ... ok
+test_rong (test_co_ban.TestHangDoi.test_rong) ... ok
+test_suc_chua_mot (test_co_ban.TestHangDoi.test_suc_chua_mot) ... ok
+test_suc_chua_sai (test_co_ban.TestHangDoi.test_suc_chua_sai) ... ok
+test_lifo (test_co_ban.TestNganXep.test_lifo) ... ok
+test_rong (test_co_ban.TestNganXep.test_rong) ... ok
+test_xem_dinh_khong_xoa (test_co_ban.TestNganXep.test_xem_dinh_khong_xoa) ... ok
+test_kiem_tra_gia_tri (test_co_ban.TestNgoacVaDauVao.test_kiem_tra_gia_tri) ... ok
+test_ngoac_dung (test_co_ban.TestNgoacVaDauVao.test_ngoac_dung) ... ok
+test_ngoac_sai (test_co_ban.TestNgoacVaDauVao.test_ngoac_sai) ... ok
+test_service_cau_lenh (test_co_ban.TestNgoacVaDauVao.test_service_cau_lenh) ... ok
+test_service_rollback_input (test_co_ban.TestNgoacVaDauVao.test_service_rollback_input) ... ok
+test_vi_tri_unicode (test_co_ban.TestNgoacVaDauVao.test_vi_tri_unicode) ... ok
+test_danh_sach_ngau_nhien_co_seed (test_bai_tap.TestBaiTap.test_danh_sach_ngau_nhien_co_seed) ... ok
+test_dem_khong_co (test_bai_tap.TestBaiTap.test_dem_khong_co) ... ok
+test_dem_rong (test_bai_tap.TestBaiTap.test_dem_rong) ... ok
+test_dem_trung_khong_doi (test_bai_tap.TestBaiTap.test_dem_trung_khong_doi) ... ok
+test_lay_nhieu_het (test_bai_tap.TestBaiTap.test_lay_nhieu_het) ... ok
+test_lay_nhieu_k_sai_khong_doi (test_bai_tap.TestBaiTap.test_lay_nhieu_k_sai_khong_doi) ... ok
+test_lay_nhieu_khong (test_bai_tap.TestBaiTap.test_lay_nhieu_khong) ... ok
+test_lay_nhieu_rong (test_bai_tap.TestBaiTap.test_lay_nhieu_rong) ... ok
+test_lay_nhieu_thu_tu (test_bai_tap.TestBaiTap.test_lay_nhieu_thu_tu) ... ok
+test_xem_k_khong_va_het (test_bai_tap.TestBaiTap.test_xem_k_khong_va_het) ... ok
+test_xem_k_quay_vong (test_bai_tap.TestBaiTap.test_xem_k_quay_vong) ... ok
+test_xem_k_rong (test_bai_tap.TestBaiTap.test_xem_k_rong) ... ok
+test_xem_k_sai_khong_doi (test_bai_tap.TestBaiTap.test_xem_k_sai_khong_doi) ... ok
+test_xoa_het (test_bai_tap.TestBaiTap.test_xoa_het) ... ok
+test_xoa_khong_co (test_bai_tap.TestBaiTap.test_xoa_khong_co) ... ok
+test_xoa_lien_tiep_va_giu_nut_con_lai (test_bai_tap.TestBaiTap.test_xoa_lien_tiep_va_giu_nut_con_lai) ... ok
+test_xoa_rong (test_bai_tap.TestBaiTap.test_xoa_rong) ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 0.027s
+
+OK

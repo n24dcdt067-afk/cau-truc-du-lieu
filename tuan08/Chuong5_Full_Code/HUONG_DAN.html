@@ -1,0 +1,2518 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chương 5 · Full code dành cho giảng viên</title><style>*{box-sizing:border-box}body{margin:0;background:#f2f6f5;color:#193247;font:17px/1.75 Arial,sans-serif}header{background:#173348;color:#fff;padding:34px max(25px,calc((100vw - 1060px)/2))}header p{color:#d1e5e8;margin:8px 0}header h1{font-size:31px;line-height:1.3;margin:0}main{max-width:1120px;margin:auto;padding:26px 28px 70px}section{background:#fff;border:1px solid #d5e0e3;border-radius:10px;padding:25px 30px;margin:20px 0}h1,h2,h3{line-height:1.35}h2{font-size:24px;color:#087366;border-bottom:1px solid #d7e5e3;padding-bottom:9px;margin-top:32px}h3{font-size:18px}a{color:#006e67;text-underline-offset:3px}code{font: .9em/1.7 Consolas,'Liberation Mono',monospace;background:#eff4f5;padding:1px 4px;border-radius:4px}pre{padding:18px 20px;background:#142e40;color:#e6eef4;border-radius:8px;overflow:auto;font-size:14px;line-height:1.75}pre code{padding:0;background:none;white-space:pre}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:12px 15px;border-bottom:1px solid #d7e3e5;vertical-align:top}th{background:#eaf4f1}.scroll{overflow:auto}.notice{background:#fff4df;border-left:4px solid #ae7529;padding:16px 20px}.links{display:flex;gap:12px;flex-wrap:wrap}.links a{padding:10px 15px;background:#e7f2ee;border-radius:6px;font-weight:bold;text-decoration:none}details{border:1px solid #cbdcdd;border-radius:8px;margin:14px 0;background:#f8fbfa}summary{cursor:pointer;padding:13px 18px;font-weight:bold;font-size:15px;overflow-wrap:anywhere}details pre{border-radius:0 0 7px 7px;margin:0;max-height:630px}.source-note{font-size:14px;color:#516c78}.copy{border:1px solid #a6c1c2;border-radius:5px;background:#fff;color:#1c4755;padding:7px 12px;cursor:pointer;margin:8px 14px;font-size:13px}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #c5923c;outline-offset:3px}.toc{columns:2}.toc p{margin:5px 0;font-size:14px}@media(max-width:700px){body{font-size:16px}main{padding:12px}section{padding:19px 16px}header{padding:24px}header h1{font-size:26px}.toc{columns:1}pre{font-size:12px}}@media print{header{background:white;color:#111}.links,.copy,.toc{display:none}main{padding:0}section{border:0;padding:0}details{break-inside:avoid}pre{background:#f2f2f2;color:#111;white-space:pre-wrap}body{background:white;font-size:10pt}}</style></head><body><header><h1>Thực hành Chương 5</h1><p>Full code dành cho giảng viên · Python / Julia</p></header><main><section><p>Bản này cài đặt đầy đủ cả các thuật toán mẫu và bốn hàm bài tập trong Python/Julia. Dùng để xem nguồn, trình diễn và đối chiếu; giữ riêng khi giao bài.</p><div class="notice"><strong>Trạng thái kiểm chứng:</strong> Python đã chạy 42 kiểm thử ở bản đáp án. Julia có đầy đủ mã và test nhưng chưa được thực thi trong môi trường biên soạn.</div><p class="source-note">Tệp này dùng để đọc hướng dẫn và mã nguồn ngoại tuyến. Để chạy giao diện tương tác, khởi động app.py hoặc app.jl theo hướng dẫn, không mở riêng web/index.html.</p><div class="links"><a href="#huong-dan">Hướng dẫn chạy</a><a href="#ma-nguon">Đọc toàn bộ mã</a><a href="docs/Chuong5_Bai_tap_1_tuan_co_lap_trinh.docx">Đề bài Word</a><a href="docs/Chuong5_Mau_bao_cao_lap_trinh.docx">Mẫu báo cáo</a></div></section><section id="huong-dan"><h1>Thực hành Chương 5: Python và Julia</h1>
+<h2>1. Chọn ngôn ngữ và mở đúng thư mục</h2>
+<p>Chỉ cần chọn <strong>Python hoặc Julia</strong>. Hai chương trình độc lập: bản Julia không gọi Python và bản Python không cần Julia. Cả hai sử dụng cùng giao diện HTML/CSS/JavaScript, nhưng mọi thao tác cấu trúc dữ liệu chạy ở máy chủ của ngôn ngữ đã chọn.</p>
+<p>Giải nén toàn bộ gói trước khi chạy. Thư mục đang mở phải chứa <code>python/</code>, <code>julia/</code>, <code>web/</code> và các tệp chạy. Không chạy trực tiếp từ trong cửa sổ xem ZIP. Không mở riêng <code>web/index.html</code> để chạy ứng dụng.</p>
+<p>Mức tương thích mục tiêu: Python từ 3.10; Julia nhánh 1.x từ 1.10. Môi trường đã thực thi khi kiểm tra: Python 3.13.5 trên Linux. Chưa thực thi Julia trong môi trường biên soạn; phải kiểm tra trên máy Julia trước khi dùng làm kết quả chuẩn.</p>
+<h2>2. Chạy Python</h2>
+<p>Mở terminal tại thư mục gốc của gói:</p>
+<pre><code>python python/app.py</code></pre>
+<p>Trên Windows, có thể nhấp đúp <code>Chay_Python.bat</code>. Nếu máy có trình khởi chạy <code>py</code>, lệnh tương đương là:</p>
+<pre><code>py -3 python/app.py</code></pre>
+<p>Trên macOS/Linux, dùng:</p>
+<pre><code>python3 python/app.py</code></pre>
+<p>Python không cần cài thêm gói bằng pip. Chương trình thường tự mở trình duyệt; nếu không mở, tự nhập địa chỉ:</p>
+<pre><code>http://127.0.0.1:8000</code></pre>
+<p>Giữ terminal mở. Dừng bằng Ctrl+C. Đổi cổng khi cổng mặc định đang bận:</p>
+<pre><code>python python/app.py --port 8002</code></pre>
+<p>Khi đó mở cổng 8002, không mở lại cổng 8000. Dùng <code>--no-browser</code> để không tự mở trình duyệt.</p>
+<h2>3. Chạy Julia</h2>
+<p>Kiểm tra Julia đã được cài và lệnh <code>julia --version</code> chạy được. Đứng tại thư mục gốc của gói, cài các phụ thuộc của giao diện:</p>
+<pre><code>julia --project=julia -e &quot;using Pkg; Pkg.instantiate()&quot;
+julia --project=julia julia/app.jl</code></pre>
+<p>Mở địa chỉ được in trong terminal:</p>
+<pre><code>http://127.0.0.1:8001</code></pre>
+<p>Có thể dùng <code>Chay_Julia.bat</code> trên Windows. Tệp chạy này thực hiện bước instantiate trước khi mở ứng dụng. Lần tải gói đầu cần Internet và có thể mất thời gian biên dịch; không đóng cửa sổ khi Julia vẫn đang xử lý.</p>
+<p><code>julia/Project.toml</code> cố định hai phụ thuộc trực tiếp: HTTP 1.10.19 và JSON3 1.14.3. Không cung cấp Manifest giả. Sau khi instantiate thành công, Julia có thể tạo <code>julia/Manifest.toml</code> ghi các phiên bản phụ thuộc đã giải quyết; giữ tệp này khi nộp bài để hỗ trợ chạy lại. Chưa cố định các phụ thuộc bắc cầu trước khi instantiate.</p>
+<p>Đổi cổng:</p>
+<pre><code>julia --project=julia julia/app.jl 8003</code></pre>
+<p>Thuật toán và các kiểm thử dùng Base, Test, Random, không cần HTTP/JSON3. Chỉ máy chủ giao diện cần cài hai gói đó.</p>
+<h2>4. Kiểm thử trước và sau khi sửa mã</h2>
+<p>Chạy các lệnh sau ở <strong>terminal khác</strong>, hoặc dừng máy chủ rồi chạy kiểm thử. Sau khi sửa bài làm, luôn dừng và khởi động lại máy chủ; tải lại trang không tự nạp mã Python/Julia mới.</p>
+<p>Python:</p>
+<pre><code>python python/test_co_ban.py
+python python/test_bai_tap.py</code></pre>
+<p>Julia:</p>
+<pre><code>julia --project=julia julia/test_co_ban.jl
+julia --project=julia julia/test_bai_tap.jl</code></pre>
+<p><code>test_co_ban</code> kiểm tra phần mẫu và phải chạy trước khi làm bài. <code>test_bai_tap</code> kiểm tra bốn chức năng sinh viên cần viết; trong gói sinh viên, kiểm thử này chưa đạt khi các hàm còn báo chưa hoàn thành. Không sửa kỳ vọng của bộ kiểm thử để che lỗi.</p>
+<p>Bổ sung <code>python/test_them.py</code> hoặc <code>julia/test_them.jl</code> với ít nhất hai tình huống tự chọn, rồi chạy tệp này. Ví dụ cách ghi log (dùng <code>&gt;&gt;</code> để nối, không ghi đè phần trước):</p>
+<pre><code>python python/test_co_ban.py &gt; ket_qua_kiem_thu.txt 2&gt;&amp;1
+python python/test_bai_tap.py &gt;&gt; ket_qua_kiem_thu.txt 2&gt;&amp;1
+python python/test_them.py &gt;&gt; ket_qua_kiem_thu.txt 2&gt;&amp;1</code></pre>
+<p>Với Julia, thay ba lệnh trên bằng <code>julia --project=julia julia/test_....jl</code>. Cú pháp chuyển hướng tùy shell; cách đơn giản khác là sao chép đầu ra terminal vào tệp văn bản và giữ nguyên thông báo lỗi.</p>
+<h2>5. Từng bước thao tác trên giao diện</h2>
+<p><strong>Danh sách liên kết.</strong> Nhập <code>10, 20, 30</code>, bấm Tạo danh sách. Nhập x = 25 và giá trị cần tìm = 20, bấm Chèn x sau nút. Danh sách phải là <code>10 → 20 → 25 → 30</code>. Đầu vào có nhiều giá trị trùng thì thao tác tìm/chèn/xoá một x dùng nút đầu tiên phù hợp. Đọc trạng thái trước và sau, không chỉ đọc thông báo thành công.</p>
+<p><strong>Ngăn xếp.</strong> Chọn Ngăn xếp, đẩy lần lượt 10, 20, 30. Bấm Xem đỉnh: nhận 30 nhưng số phần tử vẫn là 3. Bấm Lấy đỉnh: nhận 30 và số phần tử còn 2. Hình vẽ đặt đỉnh ở trên; mảng lưu từ đáy tới đỉnh.</p>
+<p><strong>Hàng đợi vòng.</strong> Tạo sức chứa 4, thêm 1, 2, 3, 4; lấy hai lần; thêm 5 và 6. Mảng vật lý là <code>[5, 6, 3, 4]</code>, <code>dau = 2</code>, <code>so = 4</code>. Dãy FIFO là <code>[3, 4, 5, 6]</code>. Khi hàng đầy, thêm tiếp bị từ chối, không ghi đè. Ô ngoài hàng vẫn có thể chứa số cũ, không được tính là phần tử hợp lệ.</p>
+<p><strong>Kiểm tra dấu ngoặc.</strong> Thử <code>([)]</code>, xem từng bước để nhận ra ngoặc đóng không khớp với đỉnh. Thử <code>{[(a+b)*c]}</code> để kiểm tra trường hợp đúng. Thuật toán chỉ kiểm tra ngoặc <code>()[]{}</code>, bỏ qua ký tự khác; không phải bộ phân tích cú pháp và không xử lý riêng dấu nháy của ngôn ngữ lập trình. Chuỗi rỗng hợp lệ.</p>
+<p><strong>Bốn chức năng bài tập.</strong> Bấm Đếm x, Xoá tất cả x, Lấy k phần tử và Xem k phần tử đầu. Các nút gọi trực tiếp hàm trong tệp bài làm. Bản sinh viên hiển thị thông báo cần hoàn thành nếu chưa viết hàm; bản đáp án có mã cho cả bốn.</p>
+<p><strong>Nhật ký.</strong> Nút Xuất nhật ký JSON ghi tối đa 200 thao tác thành công gần nhất trong tab đang mở. Các thao tác lỗi không được thêm vào nhật ký này; lưu bằng log kiểm thử hoặc ảnh nếu cần minh chứng lỗi. Tải lại/đóng tab sẽ mất nhật ký chưa xuất. Tệp JSON không thay cho kiểm thử và không chứng minh tác giả.</p>
+<h2>6. Đọc mã theo thứ tự nào?</h2>
+<div class="scroll"><table><tr><th>Vai trò</th><th>Python</th><th>Julia</th></tr><tr><td>Nút, danh sách, ngăn xếp, hàng đợi, ngoặc</td><td><code>python/cau_truc.py</code></td><td><code>julia/CauTruc.jl</code></td></tr><tr><td>Bốn hàm bài tập</td><td><code>python/bai_lam.py</code></td><td><code>julia/BaiLam.jl</code></td></tr><tr><td>Nhận tên thao tác, gọi hàm, chụp trước/sau</td><td><code>python/dich_vu.py</code></td><td><code>julia/DichVu.jl</code></td></tr><tr><td>Máy chủ cục bộ</td><td><code>python/app.py</code></td><td><code>julia/app.jl</code></td></tr><tr><td>Kiểm thử mẫu và bài tập</td><td><code>python/test_*.py</code></td><td><code>julia/test_*.jl</code></td></tr><tr><td>Khung giao diện</td><td><code>web/index.html</code></td><td>Dùng chung</td></tr><tr><td>Kiểu chữ, bố cục, trạng thái nút</td><td><code>web/style.css</code></td><td>Dùng chung</td></tr><tr><td>Gửi thao tác, vẽ kết quả, ghi nhật ký</td><td><code>web/app.js</code></td><td>Dùng chung</td></tr></table></div>
+<p>Luồng gọi cụ thể khi bấm Đếm x:</p>
+<pre><code>web/index.html: nút có data-op=&quot;list.count&quot;
+    -&gt; web/app.js: act({op:&quot;list.count&quot;, x:...})
+    -&gt; POST /api/action
+    -&gt; app.py hoặc app.jl
+    -&gt; dich_vu.py hoặc DichVu.jl
+    -&gt; bai_lam.dem_gia_tri(L, x) hoặc BaiLam.dem_gia_tri(L, x)
+    -&gt; kết quả JSON -&gt; cập nhật trạng thái và giải thích trên trang</code></pre>
+<p><code>/api/state</code> đọc trạng thái và mã phiên cục bộ. <code>/api/action</code> nhận lệnh. Không sửa JavaScript để tính câu trả lời thay cho hàm; việc đó không kiểm tra được cài đặt bằng Julia/Python của sinh viên.</p>
+<h2>7. Các điểm dễ nhầm</h2>
+<p><code>gt</code> là dữ liệu; <code>ke</code> giữ tham chiếu tới nút kế tiếp. <code>p = p.ke</code> chỉ dời biến p; <code>p.ke = ...</code> sửa đường nối của một nút. Python dùng <code>None</code>, Julia dùng <code>nothing</code> và các phép kiểm tra <code>===</code>/<code>!==</code> phù hợp trong mã mẫu.</p>
+<p>Với danh sách, <code>L.n</code> là số nút. Với hàng đợi, <code>q.n</code> là sức chứa và <code>q.so</code> mới là số phần tử hợp lệ. Không dùng số ô đang chứa số khác rỗng để suy ra độ dài hàng đợi.</p>
+<p>Trong hàng đợi, <code>dau</code> là chỉ số logic bắt đầu từ 0 ở cả hai bản. Python đọc ô logic i bằng <code>q.a[i]</code>, Julia bằng <code>q.a[i + 1]</code>. Dấu <code>!</code> trong tên hàm Julia biểu thị quy ước hàm có thay đổi dữ liệu; các tên ở bộ mã phải giữ nguyên để máy chủ gọi được.</p>
+<p>Các hàm bài tập phải xử lý đúng <code>k = 0</code>, rỗng, giá trị trùng và k sai. <code>bool</code>/<code>Bool</code> không được coi là số lượng hợp lệ dù có quan hệ kiểu với số nguyên trong hai ngôn ngữ.</p>
+<h2>8. Phạm vi, lỗi cài đặt và giới hạn</h2>
+<p>Ứng dụng chỉ dành cho một người học trên máy cá nhân, lắng nghe ở <code>127.0.0.1</code>, không đưa lên Internet. Các tab nối cùng máy chủ dùng chung cấu trúc dữ liệu. Trạng thái nằm trong RAM, không có cơ sở dữ liệu; dừng máy chủ sẽ mất trạng thái. Bấm Đọc lại trạng thái để đồng bộ sau khi thao tác ở tab khác.</p>
+<p>Máy chủ chỉ phục vụ ba tệp giao diện đã liệt kê; kiểm tra Host, Origin và token cho yêu cầu thay đổi dữ liệu. Đây vẫn là ứng dụng thực hành, không phải một dịch vụ đã được kiểm toán bảo mật hay hệ thống nhiều người dùng.</p>
+<p>Giới hạn của giao diện: tối đa 50 nút danh sách, 50 phần tử ngăn xếp, sức chứa hàng đợi 1–12, số nguyên trong ±1.000.000, chuỗi ngoặc 200 ký tự. Đây là quy ước bổ sung để dễ quan sát và kiểm tra đầu vào, không phải giới hạn toán học của cấu trúc dữ liệu.</p>
+<p>Trạng thái hiển thị là bản sao tạo bằng cách duyệt. Hoạt ảnh và tốc độ giao diện không phải phép đo độ phức tạp. Một thao tác nối/lấy ở lõi có thể O(1), nhưng sao lưu, chuyển JSON và vẽ n phần tử có thêm chi phí O(n).</p>
+<p>Nếu <code>python</code> hoặc <code>julia</code> không được nhận diện, kiểm tra cài đặt và PATH; mở lại terminal sau khi cài. Nếu thiếu thư mục web, giải nén lại toàn bộ gói. Nếu Julia báo thiếu HTTP/JSON3, chạy lại lệnh instantiate đúng <code>--project=julia</code> khi có mạng. Nếu đang bận cổng, đổi cổng hoặc dừng tiến trình cũ bằng Ctrl+C; không đổi địa chỉ lắng nghe thành 0.0.0.0 để xử lý lỗi cổng.</p>
+<p>Nếu thông báo tiếng Việt không hiện đúng trong Windows CMD, chạy <code>chcp 65001</code>, hoặc dùng tệp <code>.bat</code> đã có lệnh này. Lưu các tệp mã bằng UTF-8. Không sửa tên module hoặc đổi chữ hoa/thường của tệp Julia.</p>
+<p>Nếu viết sai liên kết làm vòng lặp chạy mãi, dừng bằng Ctrl+C, sửa hàm và chạy kiểm thử trước khi mở lại giao diện. Cơ chế sao lưu phục hồi khi có ngoại lệ không phải cơ chế dừng mọi vòng lặp vô hạn.</p>
+<h2>9. Kiểm chứng của bản phân phối</h2>
+<p>Python 3.13.5/Linux: 42 kiểm thử của bản đáp án đạt (25 kiểm thử cơ bản và 17 kiểm thử bài tập). Có kiểm tra chuỗi 1.000 thao tác danh sách, 1.000 thao tác hàng đợi và 200 dãy đối chiếu cho bài tập với seed 20260917; đây là các vòng lặp bên trong test, không phải 42 + 2.200 test độc lập. Bộ cơ bản của bản sinh viên đạt 25 test.</p>
+<p>Đã kiểm tra HTTP Python cho tệp giao diện, dữ liệu JSON, dữ liệu sai, kiểm tra Host/Origin/token và trạng thái không đổi khi từ chối yêu cầu. Đã kiểm tra giao diện với Chromium bằng dựng DOM và cầu nối tới API cục bộ thật, gồm bốn chức năng, trạng thái quay vòng, dấu ngoặc, chuyển thẻ và bố cục rộng 390 px. Do môi trường trình duyệt có hạn chế điều hướng, đây không phải kiểm tra toàn bộ đường tải trang HTTP trong trình duyệt trên máy người dùng. Chưa kiểm thử thao tác lưu tệp tải xuống qua hộp thoại của hệ điều hành.</p>
+<p>Julia: đã cung cấp đầy đủ nguồn và test riêng, đối chiếu cú pháp/API với tài liệu chính thức; <strong>chưa thực thi vì môi trường biên soạn không có Julia</strong>. Không có kết quả Julia giả định, không có cam kết đã thử trên Windows/macOS hoặc mọi phiên bản. Chạy test trên máy trước khi so sánh và nộp log thực tế.</p>
+<h2>10. Cơ sở nội dung và tài liệu kỹ thuật</h2>
+<p>Nguồn bài học: <code>05-Danh-sach-lien-ket-Ngan-xep-Hang-doi.pdf</code>, Chương 5, mục 5.3–5.5; Bài 5.1 ở trang PDF 15; Bài 5.2 ở trang PDF 25. Giữ các tên gt, ke, dau, n, so và các quy tắc thao tác trong chương. Đề 7 ngày rút gọn khối lượng, chỉ yêu cầu một ngôn ngữ. Giao diện, API, giới hạn đầu vào, bốn hàm mở rộng và các kiểm thử là phần biên soạn bổ sung, không phải nguyên văn bài trong PDF.</p>
+<p>Tài liệu chính thức về máy chủ, gói và môi trường:</p>
+<pre><code>https://docs.python.org/3/library/http.server.html
+https://github.com/JuliaWeb/HTTP.jl/blob/v1.10.19/docs/src/server.md
+https://quinnj.github.io/JSON3.jl/stable/
+https://pkgdocs.julialang.org/v1/environments/</code></pre>
+<p>Python lưu ý http.server chỉ có kiểm tra bảo mật cơ bản và không được khuyến nghị cho production. Bộ mã này cố ý chỉ phục vụ học tập cục bộ.</p></section><section><h1>Ghi chú dành cho giảng viên</h1>
+<h2>Phát đúng gói</h2>
+<p>Phát gói Sinh viên cùng đề và mẫu báo cáo. Giữ gói Full code để trình diễn hoặc đối chiếu sau khi nộp. Hai gói chỉ khác mô-đun bài làm (bốn hàm) và nhãn phiên bản; thuật toán mẫu, giao diện và bộ test giữ cùng giao diện gọi.</p>
+<p>Không cần bắt sinh viên viết lại máy chủ HTTP hoặc trang web. Tiêu chí trọng tâm là sửa cấu trúc dữ liệu thật, kiểm thử trực tiếp hàm và giải thích kết quả.</p>
+<h2>Điểm cần đối chiếu trong lời giải</h2>
+<p><strong>Đếm x.</strong> Đặt dem = 0, p = dau; mỗi nút khớp tăng dem, sau đó dời p. Không dùng n làm kết quả vì n là tổng số nút, không phải số lần xuất hiện của x. O(n) thời gian, O(1) bộ nhớ phụ trong cách cài đặt tham khảo.</p>
+<p><strong>Xoá tất cả x.</strong> Giữ truoc và p, lưu sau trước khi cắt. Nếu p cần xoá thì sửa dau hoặc truoc.ke rồi giảm n; không dời truoc sang một nút vừa bị loại. Nếu giữ p, mới dời truoc = p. Luôn dời p = sau để tiếp tục. O(n) thời gian, O(1) bộ nhớ phụ; không tạo nút mới. Test giữ định danh của hai nút còn lại để phát hiện cách làm tạo lại danh sách.</p>
+<p><strong>Lấy k phần tử.</strong> Kiểm tra loại k và 0 &lt;= k &lt;= số phần tử trước vòng lặp. Bản mẫu gọi thao tác lấy k lần; dãy trả về theo đúng thứ tự lấy. O(k) thời gian cho vòng lấy, O(k) bộ nhớ cho dãy kết quả, không tính chi phí sao lưu/hiển thị của API. Kết quả không phải một đoạn đầu của mảng đáy–đỉnh.</p>
+<p><strong>Xem k phần tử.</strong> Đọc ô logic <code>(dau + i) % n</code> cho i từ 0 đến k−1; Julia cộng 1 khi truy cập Vector. Không đổi a, dau, so, n. O(k) thời gian và O(k) bộ nhớ cho kết quả. Không chấm đạt nếu lấy ra rồi thêm lại, dù dãy cuối trông giống nhau.</p>
+<h2>Gợi ý chấm chi tiết, tổng 10 điểm</h2>
+<div class="scroll"><table><tr><th>Phần</th><th>Phân chia điểm</th></tr><tr><td>Bài 1: 1,0</td><td>Đếm đúng 0,5; không sửa cấu trúc 0,25; rỗng/không có x 0,25.</td></tr><tr><td>Bài 2: 2,0</td><td>Xoá đủ giá trị trùng 0,75; dau/n đúng 0,5; giữ các nút còn lại 0,5; một lượt duyệt 0,25.</td></tr><tr><td>Bài 3: 1,5</td><td>Thứ tự LIFO 0,5; k sai không thay đổi 0,5; k = 0, lấy hết và rỗng 0,5.</td></tr><tr><td>Bài 4: 1,5</td><td>FIFO khi quay vòng 0,75; giữ nguyên toàn trạng thái 0,5; kiểm tra k 0,25.</td></tr><tr><td>Kiểm thử: 2,0</td><td>Ghi kết quả T01–T12 0,75; hai test riêng có ý nghĩa 0,75; log và lệnh chạy lại 0,5.</td></tr><tr><td>Trình diễn và giải thích: 2,0</td><td>Giao diện gọi đúng mã đã sửa 1,0; giải thích được ba điểm trong mẫu báo cáo 1,0.</td></tr></table></div>
+<p>Không đánh đồng “test đạt” với chắc chắn không còn lỗi; bộ mẫu chỉ phủ một số tình huống. Có thể hỏi sinh viên sửa x hoặc k tại chỗ và dự đoán trước kết quả. Không dùng ảnh màn hình hoặc nhãn giao diện làm bằng chứng duy nhất về người viết mã.</p>
+<h2>Kiểm tra nhanh</h2>
+<p>Danh sách [2,2,1,2,3,2], xoá 2 -&gt; 4 nút, còn [1,3], n = 2. Ngăn xếp [10,20,30], lấy 2 -&gt; [30,20], còn [10]. Lấy 4 trên ngăn xếp có 3 phải báo lỗi mà không lấy bớt. Hàng đợi sau quay vòng vật lý [5,6,3,4], dau=2, so=4, xem3 -&gt; [3,4,5], không đổi các trường.</p>
+<p>Giữ riêng bài tập này khỏi bài kiểm tra hiểu bài trên lớp. Đây là bài làm trong 7 ngày có quyền xem mã mẫu, không phải bài thi chép lại định nghĩa. Hạn giao/nộp để trống để điền theo lịch lớp.</p>
+<h2>Phạm vi thực thi</h2>
+<p>Python đã thử theo KET_QUA_KIEM_TRA.txt. Julia chưa được thực thi trong môi trường biên soạn; chạy instantiate và hai bộ test trên máy Julia trước buổi học. Không diễn đạt kết quả Python thành kết quả của Julia.</p></section><section id="ma-nguon"><h2>Mã nguồn của bản phân phối</h2><p>Mở tên tệp để đọc hoặc sao chép. Các tệp rời trong gói ZIP là bản dùng để chạy; không cần tách mã từ trang này.</p><div class="toc"><p><a href="#code-0">python/app.py</a></p><p><a href="#code-1">python/bai_lam.py</a></p><p><a href="#code-2">python/cau_truc.py</a></p><p><a href="#code-3">python/dich_vu.py</a></p><p><a href="#code-4">python/test_bai_tap.py</a></p><p><a href="#code-5">python/test_co_ban.py</a></p><p><a href="#code-6">julia/BaiLam.jl</a></p><p><a href="#code-7">julia/CauTruc.jl</a></p><p><a href="#code-8">julia/DichVu.jl</a></p><p><a href="#code-9">julia/Project.toml</a></p><p><a href="#code-10">julia/app.jl</a></p><p><a href="#code-11">julia/test_bai_tap.jl</a></p><p><a href="#code-12">julia/test_co_ban.jl</a></p><p><a href="#code-13">web/app.js</a></p><p><a href="#code-14">web/index.html</a></p><p><a href="#code-15">web/style.css</a></p></div><details id="code-0"><summary>python/app.py · 119 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&quot;&quot;&quot;Chạy: python python/app.py [--port 8000] [--no-browser].
+
+Máy chủ cục bộ cho một người học. Không triển khai lên Internet.
+Giao diện ở ../web; toàn bộ thuật toán chạy trong Python, không chạy trong JavaScript.
+&quot;&quot;&quot;
+from __future__ import annotations
+import argparse
+import json
+from pathlib import Path
+import secrets
+import threading
+import webbrowser
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from dich_vu import UngDung
+
+WEB = Path(__file__).resolve().parent.parent / &quot;web&quot;
+STATIC = {&quot;/&quot;: (&quot;index.html&quot;, &quot;text/html; charset=utf-8&quot;),
+          &quot;/style.css&quot;: (&quot;style.css&quot;, &quot;text/css; charset=utf-8&quot;),
+          &quot;/app.js&quot;: (&quot;app.js&quot;, &quot;text/javascript; charset=utf-8&quot;)}
+
+
+class MayChu(ThreadingHTTPServer):
+    daemon_threads = True
+    def __init__(self, address):
+        super().__init__(address, XuLy)
+        self.ung_dung = UngDung()
+        self.khoa = threading.Lock()
+        self.token = secrets.token_urlsafe(32)
+        self.origins = {f&quot;http://127.0.0.1:{self.server_port}&quot;, f&quot;http://localhost:{self.server_port}&quot;}
+        self.hosts = {f&quot;127.0.0.1:{self.server_port}&quot;, f&quot;localhost:{self.server_port}&quot;}
+
+
+class XuLy(BaseHTTPRequestHandler):
+    def log_message(self, *args) -&gt; None:
+        pass  # Tránh in dữ liệu người dùng vào terminal.
+
+    def gui(self, code: int, body: bytes, mime: str) -&gt; None:
+        self.send_response(code)
+        self.send_header(&quot;Content-Type&quot;, mime)
+        self.send_header(&quot;Content-Length&quot;, str(len(body)))
+        self.send_header(&quot;Cache-Control&quot;, &quot;no-store&quot;)
+        self.send_header(&quot;X-Content-Type-Options&quot;, &quot;nosniff&quot;)
+        self.send_header(&quot;X-Frame-Options&quot;, &quot;DENY&quot;)
+        self.send_header(&quot;Content-Security-Policy&quot;, &quot;default-src &#x27;self&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; data:; connect-src &#x27;self&#x27;; frame-ancestors &#x27;none&#x27;; base-uri &#x27;none&#x27;&quot;)
+        self.end_headers()
+        self.wfile.write(body)
+
+    def json(self, code: int, value: dict) -&gt; None:
+        self.gui(code, json.dumps(value, ensure_ascii=False).encode(&quot;utf-8&quot;), &quot;application/json; charset=utf-8&quot;)
+
+    def hop_le(self) -&gt; bool:
+        return self.headers.get(&quot;Host&quot;, &quot;&quot;) in self.server.hosts
+
+    def do_GET(self) -&gt; None:
+        if not self.hop_le():
+            return self.json(403, {&quot;ok&quot;: False, &quot;message&quot;: &quot;Host không hợp lệ.&quot;})
+        path = self.path.split(&quot;?&quot;, 1)[0]
+        if path == &quot;/api/state&quot;:
+            with self.server.khoa:
+                state = self.server.ung_dung.trang_thai()
+            return self.json(200, {&quot;ok&quot;: True, &quot;state&quot;: state, &quot;token&quot;: self.server.token})
+        if path == &quot;/favicon.ico&quot;:
+            return self.gui(204, b&quot;&quot;, &quot;image/x-icon&quot;)
+        if path in STATIC:
+            name, mime = STATIC[path]
+            return self.gui(200, (WEB / name).read_bytes(), mime)
+        self.json(404, {&quot;ok&quot;: False, &quot;message&quot;: &quot;Không tìm thấy đường dẫn.&quot;})
+
+    def do_POST(self) -&gt; None:
+        if (not self.hop_le() or self.headers.get(&quot;Origin&quot;) not in self.server.origins
+                or self.headers.get(&quot;X-Lab-Token&quot;) != self.server.token):
+            return self.json(403, {&quot;ok&quot;: False, &quot;message&quot;: &quot;Tải lại trang từ địa chỉ máy chủ cục bộ.&quot;})
+        if self.path != &quot;/api/action&quot;:
+            return self.json(404, {&quot;ok&quot;: False, &quot;message&quot;: &quot;Không có API này.&quot;})
+        if self.headers.get(&quot;Content-Type&quot;, &quot;&quot;).split(&quot;;&quot;)[0] != &quot;application/json&quot;:
+            return self.json(415, {&quot;ok&quot;: False, &quot;message&quot;: &quot;Cần dữ liệu JSON.&quot;})
+        try:
+            size = int(self.headers.get(&quot;Content-Length&quot;, &quot;0&quot;))
+            if not 1 &lt;= size &lt;= 16384:
+                raise ValueError(&quot;Kích thước yêu cầu không hợp lệ.&quot;)
+            self.connection.settimeout(10)
+            data = json.loads(self.rfile.read(size).decode(&quot;utf-8&quot;))
+            with self.server.khoa:
+                response = self.server.ung_dung.thuc_hien(data)
+            self.json(200, response)
+        except NotImplementedError as exc:
+            self.json(422, {&quot;ok&quot;: False, &quot;message&quot;: str(exc)})
+        except (ValueError, TypeError, UnicodeError) as exc:
+            self.json(400, {&quot;ok&quot;: False, &quot;message&quot;: str(exc)})
+        except Exception as exc:
+            self.json(500, {&quot;ok&quot;: False, &quot;message&quot;: f&quot;Lỗi trong mã: {type(exc).__name__}. Kiểm tra hàm vừa sửa và chạy bộ kiểm thử.&quot;})
+
+
+def main() -&gt; None:
+    parser = argparse.ArgumentParser(description=&quot;Thực hành Chương 5 trên máy cá nhân&quot;)
+    parser.add_argument(&quot;--port&quot;, type=int, default=8000)
+    parser.add_argument(&quot;--no-browser&quot;, action=&quot;store_true&quot;)
+    args = parser.parse_args()
+    if not 1024 &lt;= args.port &lt;= 65535:
+        parser.error(&quot;Cổng phải nằm trong khoảng 1024..65535.&quot;)
+    if not (WEB / &quot;index.html&quot;).is_file():
+        parser.error(&quot;Thiếu thư mục web. Cần giải nén toàn bộ gói, không chỉ riêng app.py.&quot;)
+    try:
+        server = MayChu((&quot;127.0.0.1&quot;, args.port))
+    except OSError as exc:
+        parser.exit(1, f&quot;Không mở được cổng {args.port}: {exc}. Thử --port 8002.\n&quot;)
+    url = f&quot;http://127.0.0.1:{args.port}&quot;
+    print(f&quot;Python: {url}\nGiữ cửa sổ này mở. Dừng bằng Ctrl+C.&quot;, flush=True)
+    if not args.no_browser:
+        webbrowser.open(url)
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print(&quot;\nĐã dừng máy chủ.&quot;)
+    finally:
+        server.server_close()
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre></details><details id="code-1"><summary>python/bai_lam.py · 55 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&quot;&quot;&quot;Lời giải tham khảo bốn chức năng của bài tập 7 ngày.&quot;&quot;&quot;
+BAN = &quot;Đáp án&quot;
+from cau_truc import DSLK, NganXep, HangDoiVong, so_nguyen
+
+
+def dem_gia_tri(L: DSLK, x: int) -&gt; int:
+    &quot;&quot;&quot;Đếm số nút có gt == x bằng cách duyệt các liên kết; không đổi L.&quot;&quot;&quot;
+    x = so_nguyen(x)
+    dem, p = 0, L.dau
+    while p is not None:
+        if p.gt == x:
+            dem += 1
+        p = p.ke
+    return dem
+
+
+def xoa_tat_ca(L: DSLK, x: int) -&gt; int:
+    &quot;&quot;&quot;Xoá mọi nút có gt == x bằng một lượt duyệt, trả về số nút đã xoá.&quot;&quot;&quot;
+    x = so_nguyen(x)
+    dem = 0
+    truoc, p = None, L.dau
+    while p is not None:
+        sau = p.ke
+        if p.gt == x:
+            if truoc is None:
+                L.dau = sau
+            else:
+                truoc.ke = sau
+            L.n -= 1
+            dem += 1
+            # Giữ nguyên truoc: nút còn lại đứng trước không thay đổi.
+        else:
+            truoc = p
+        p = sau
+    return dem
+
+
+def lay_nhieu(s: NganXep, k: int) -&gt; list[int]:
+    &quot;&quot;&quot;Lấy đúng k giá trị theo thứ tự LIFO; k không hợp lệ thì không sửa s.&quot;&quot;&quot;
+    if type(k) is not int or not 0 &lt;= k &lt;= len(s.a):
+        raise ValueError(&quot;k phải là số nguyên từ 0 đến số phần tử ngăn xếp.&quot;)
+    result: list[int] = []
+    for _ in range(k):
+        result.append(s.lay())
+    return result
+
+
+def xem_k(q: HangDoiVong, k: int) -&gt; list[int]:
+    &quot;&quot;&quot;Trả về k phần tử đầu theo FIFO, không đổi a, dau, so hoặc n.&quot;&quot;&quot;
+    if type(k) is not int or not 0 &lt;= k &lt;= q.so:
+        raise ValueError(&quot;k phải là số nguyên từ 0 đến số phần tử hàng đợi.&quot;)
+    result: list[int] = []
+    for i in range(k):
+        result.append(q.a[(q.dau + i) % q.n])
+    return result
+</code></pre></details><details id="code-2"><summary>python/cau_truc.py · 189 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&quot;&quot;&quot;Chương 5: thuật toán cơ bản, độc lập với giao diện.
+
+Đầu vào: số nguyên trong [-1_000_000, 1_000_000].
+Danh sách dùng nút thật (gt, ke), không dùng list để thay thế các liên kết.
+Ngăn xếp dùng mảng động; hàng đợi dùng mảng cố định và chỉ số vòng.
+Tên biến theo mục 5.3, 5.4 và 5.5 của tài liệu học phần.
+&quot;&quot;&quot;
+from __future__ import annotations
+from dataclasses import dataclass
+from typing import Iterable
+
+
+def so_nguyen(x: object, ten: str = &quot;Giá trị&quot;) -&gt; int:
+    if type(x) is not int or not -1_000_000 &lt;= x &lt;= 1_000_000:
+        raise ValueError(f&quot;{ten} phải là số nguyên từ -1000000 đến 1000000.&quot;)
+    return x
+
+
+@dataclass(eq=False, slots=True)
+class Nut:
+    gt: int
+    ke: Nut | None = None
+
+
+class DSLK:
+    def __init__(self, values: Iterable[int] = ()) -&gt; None:
+        self.dau: Nut | None = None
+        self.n = 0
+        for x in values:
+            self.them_cuoi(x)
+
+    def them_dau(self, gt: int) -&gt; None:
+        gt = so_nguyen(gt)
+        self.dau = Nut(gt, self.dau)
+        self.n += 1
+
+    def them_cuoi(self, gt: int) -&gt; None:
+        m = Nut(so_nguyen(gt))
+        if self.dau is None:
+            self.dau = m
+        else:
+            p = self.dau
+            while p.ke is not None:
+                p = p.ke
+            p.ke = m
+        self.n += 1
+
+    def tim(self, gt: int) -&gt; Nut | None:
+        &quot;&quot;&quot;Trả về nút đầu tiên có giá trị gt; không thấy thì trả về None.&quot;&quot;&quot;
+        gt = so_nguyen(gt)
+        p = self.dau
+        while p is not None and p.gt != gt:
+            p = p.ke
+        return p
+
+    def chen_sau(self, p: Nut, gt: int) -&gt; Nut:
+        &quot;&quot;&quot;Điều kiện: p là một nút của danh sách, thường lấy bằng tim().&quot;&quot;&quot;
+        if p is None:
+            raise ValueError(&quot;Cần một nút hợp lệ để chèn sau.&quot;)
+        m = Nut(so_nguyen(gt), p.ke)  # Giữ phần đuôi trước khi đổi p.ke.
+        p.ke = m
+        self.n += 1
+        return m
+
+    def xoa(self, gt: int) -&gt; bool:
+        &quot;&quot;&quot;Chỉ xoá lần xuất hiện đầu tiên; trả về có xoá được hay không.&quot;&quot;&quot;
+        gt = so_nguyen(gt)
+        truoc, p = None, self.dau
+        while p is not None and p.gt != gt:
+            truoc, p = p, p.ke
+        if p is None:
+            return False
+        if truoc is None:
+            self.dau = p.ke
+        else:
+            truoc.ke = p.ke
+        self.n -= 1
+        return True
+
+    def dao(self) -&gt; None:
+        truoc, p = None, self.dau
+        while p is not None:
+            sau = p.ke              # Giữ lối đi tới phần chưa đảo.
+            p.ke = truoc
+            truoc, p = p, sau
+        self.dau = truoc
+
+    def gia_tri(self) -&gt; list[int]:
+        &quot;&quot;&quot;Tạo bản sao để hiển thị/kiểm thử; không phải cách lưu danh sách.&quot;&quot;&quot;
+        result: list[int] = []
+        seen: set[int] = set()
+        p = self.dau
+        while p is not None:
+            if id(p) in seen:
+                raise ValueError(&quot;Danh sách có chu trình. Kiểm tra thứ tự sửa ke.&quot;)
+            seen.add(id(p))
+            result.append(p.gt)
+            p = p.ke
+        if len(result) != self.n:
+            raise ValueError(&quot;Biến n không bằng số nút thực tế.&quot;)
+        return result
+
+
+class NganXep:
+    &quot;&quot;&quot;self.a lưu từ đáy tới đỉnh; phần tử cuối mảng là đỉnh.&quot;&quot;&quot;
+    def __init__(self) -&gt; None:
+        self.a: list[int] = []
+
+    def day(self, x: int) -&gt; None:
+        self.a.append(so_nguyen(x))
+
+    def lay(self) -&gt; int | None:
+        return self.a.pop() if self.a else None
+
+    def dinh(self) -&gt; int | None:
+        return self.a[-1] if self.a else None
+
+    def rong(self) -&gt; bool:
+        return len(self.a) == 0
+
+
+class HangDoiVong:
+    &quot;&quot;&quot;dau là chỉ số logic từ 0; n là sức chứa; so là số phần tử hợp lệ.&quot;&quot;&quot;
+    def __init__(self, n: int = 5) -&gt; None:
+        if type(n) is not int or n &lt;= 0:
+            raise ValueError(&quot;Sức chứa phải là số nguyên dương.&quot;)
+        self.a: list[int | None] = [None] * n
+        self.n, self.dau, self.so = n, 0, 0
+
+    def them(self, x: int) -&gt; bool:
+        x = so_nguyen(x)
+        if self.so == self.n:
+            return False
+        self.a[(self.dau + self.so) % self.n] = x
+        self.so += 1
+        return True
+
+    def lay(self) -&gt; int | None:
+        if self.so == 0:
+            return None
+        x = self.a[self.dau]
+        # Không xoá ô vật lý: giá trị cũ không còn thuộc hàng đợi logic.
+        self.dau = (self.dau + 1) % self.n
+        self.so -= 1
+        return x
+
+    def xem_dau(self) -&gt; int | None:
+        return self.a[self.dau] if self.so else None
+
+    def rong(self) -&gt; bool:
+        return self.so == 0
+
+    def gia_tri(self) -&gt; list[int]:
+        return [self.a[(self.dau + i) % self.n] for i in range(self.so)]
+
+
+def can_ngoac_chi_tiet(text: str) -&gt; dict:
+    &quot;&quot;&quot;Kiểm tra (), [], {}; bỏ qua ký tự khác. Vị trí tính từ 1 theo ký tự.
+
+    Đây là kiểm tra cấu trúc ngoặc, không phải trình phân tích cú pháp mã nguồn.
+    Dấu ngoặc trong dấu nháy vẫn được xem là ngoặc của chuỗi đầu vào.
+    &quot;&quot;&quot;
+    if not isinstance(text, str) or len(text) &gt; 200:
+        raise ValueError(&quot;Chuỗi kiểm tra tối đa 200 ký tự.&quot;)
+    cap = {&quot;)&quot;: &quot;(&quot;, &quot;]&quot;: &quot;[&quot;, &quot;}&quot;: &quot;{&quot;}
+    st: list[str] = []
+    trace = []
+    for i, c in enumerate(text, 1):
+        good = True
+        if c in &quot;([{&quot;:
+            st.append(c)
+            note = &quot;Đưa ngoặc mở vào đỉnh.&quot;
+        elif c in &quot;)]}&quot;:
+            if not st:
+                note, good = &quot;Ngoặc đóng không có ngoặc mở tương ứng.&quot;, False
+            elif st[-1] != cap[c]:
+                note, good = &quot;Ngoặc đóng khác loại với ngoặc mở ở đỉnh.&quot;, False
+            else:
+                st.pop()
+                note = &quot;Khớp loại: lấy ngoặc mở khỏi đỉnh.&quot;
+        else:
+            note = &quot;Không phải dấu ngoặc: bỏ qua.&quot;
+        trace.append({&quot;pos&quot;: i, &quot;char&quot;: c, &quot;stack&quot;: st.copy(), &quot;note&quot;: note, &quot;ok&quot;: good})
+        if not good:
+            return {&quot;valid&quot;: False, &quot;reason&quot;: note, &quot;trace&quot;: trace}
+    good = not st
+    note = &quot;Các dấu ngoặc khớp nhau.&quot; if good else &quot;Còn ngoặc mở chưa được đóng.&quot;
+    trace.append({&quot;pos&quot;: len(text) + 1, &quot;char&quot;: &quot;&quot;, &quot;stack&quot;: st.copy(), &quot;note&quot;: note, &quot;ok&quot;: good})
+    return {&quot;valid&quot;: good, &quot;reason&quot;: note, &quot;trace&quot;: trace}
+</code></pre></details><details id="code-3"><summary>python/dich_vu.py · 149 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&quot;&quot;&quot;Nối nút bấm với thuật toán. Không chứa mã vẽ giao diện.&quot;&quot;&quot;
+from __future__ import annotations
+from copy import deepcopy
+import bai_lam
+from cau_truc import DSLK, NganXep, HangDoiVong, so_nguyen, can_ngoac_chi_tiet
+
+
+class UngDung:
+    def __init__(self) -&gt; None:
+        self.L = DSLK([10, 20, 30])
+        self.s = NganXep()
+        self.q = HangDoiVong(5)
+
+    def trang_thai(self) -&gt; dict:
+        return {
+            &quot;language&quot;: &quot;Python&quot;, &quot;edition&quot;: getattr(bai_lam, &quot;BAN&quot;, &quot;Đáp án&quot;),
+            &quot;list&quot;: {&quot;values&quot;: self.L.gia_tri(), &quot;n&quot;: self.L.n},
+            &quot;stack&quot;: {&quot;values&quot;: self.s.a.copy(), &quot;n&quot;: len(self.s.a), &quot;top&quot;: self.s.dinh()},
+            &quot;queue&quot;: {&quot;values&quot;: self.q.gia_tri(), &quot;a&quot;: self.q.a.copy(), &quot;n&quot;: self.q.n,
+                      &quot;dau&quot;: self.q.dau, &quot;so&quot;: self.q.so,
+                      &quot;active&quot;: [(self.q.dau + i) % self.q.n for i in range(self.q.so)]},
+        }
+
+    def thuc_hien(self, data: dict) -&gt; dict:
+        if not isinstance(data, dict):
+            raise ValueError(&quot;Yêu cầu phải là một đối tượng JSON.&quot;)
+        before = self.trang_thai()
+        backup = deepcopy((self.L, self.s, self.q))
+        try:
+            result, message, steps, trace = self._run(data)
+            state = self.trang_thai()  # Kiểm tra n và chu trình sau khi sửa liên kết.
+            return {&quot;ok&quot;: True, &quot;result&quot;: result, &quot;message&quot;: message,
+                    &quot;steps&quot;: steps, &quot;trace&quot;: trace, &quot;before&quot;: before, &quot;state&quot;: state}
+        except Exception:
+            self.L, self.s, self.q = backup
+            raise
+
+    def _run(self, d: dict) -&gt; tuple:
+        op = d.get(&quot;op&quot;)
+        x = so_nguyen(d.get(&quot;x&quot;)) if op in {
+            &quot;list.prepend&quot;, &quot;list.append&quot;, &quot;list.find&quot;, &quot;list.insert&quot;, &quot;list.delete&quot;,
+            &quot;list.count&quot;, &quot;list.delete_all&quot;, &quot;stack.push&quot;, &quot;queue.enqueue&quot;} else None
+        if op in {&quot;list.prepend&quot;, &quot;list.append&quot;, &quot;list.insert&quot;} and self.L.n &gt;= 50:
+            raise ValueError(&quot;Giao diện giới hạn danh sách ở 50 nút.&quot;)
+        if op == &quot;stack.push&quot; and len(self.s.a) &gt;= 50:
+            raise ValueError(&quot;Giao diện giới hạn ngăn xếp ở 50 phần tử.&quot;)
+        k = so_nguyen(d.get(&quot;k&quot;), &quot;k&quot;) if op in {&quot;stack.pop_many&quot;, &quot;queue.peek_k&quot;} else None
+        trace = []
+        if op == &quot;all.reset&quot;:
+            self.__init__()
+            result, message = None, &quot;Đã khôi phục dữ liệu ban đầu.&quot;
+            steps = [&quot;Danh sách: 10 → 20 → 30. Ngăn xếp rỗng. Hàng đợi rỗng, sức chứa 5.&quot;]
+        elif op == &quot;list.reset&quot;:
+            a = d.get(&quot;values&quot;)
+            if not isinstance(a, list) or len(a) &gt; 50:
+                raise ValueError(&quot;Nhập một dãy không quá 50 số nguyên.&quot;)
+            a = [so_nguyen(v) for v in a]  # Kiểm tra hết trước khi thay dữ liệu.
+            self.L = DSLK(a)
+            result, message = self.L.n, &quot;Đã tạo danh sách mới.&quot;
+            steps = [&quot;Mỗi giá trị tạo một nút riêng.&quot;, &quot;Nút cuối có ke = None; n là số nút.&quot;]
+        elif op == &quot;list.prepend&quot;:
+            self.L.them_dau(x)
+            result, message = x, f&quot;Đã thêm {x} vào đầu.&quot;
+            steps = [&quot;Tạo nút m chứa x.&quot;, &quot;Cho m.ke giữ đầu cũ, rồi cho dau trỏ tới m.&quot;, &quot;Tăng n lên 1.&quot;]
+        elif op == &quot;list.append&quot;:
+            self.L.them_cuoi(x)
+            result, message = x, f&quot;Đã thêm {x} vào cuối.&quot;
+            steps = [&quot;Danh sách rỗng: cập nhật dau.&quot;, &quot;Danh sách có nút: duyệt đến nút cuối rồi nối m vào sau.&quot;, &quot;Tăng n lên 1.&quot;]
+        elif op == &quot;list.find&quot;:
+            p, i = self.L.dau, 1
+            while p is not None and p.gt != x:
+                p, i = p.ke, i + 1
+            result = i if p is not None else None
+            message = f&quot;Tìm thấy {x} ở vị trí {i}.&quot; if p is not None else f&quot;Không có giá trị {x}.&quot;
+            steps = [&quot;Bắt đầu ở dau và lần theo ke.&quot;, &quot;Vị trí hiển thị bắt đầu từ 1; nếu trùng, chọn lần xuất hiện đầu tiên.&quot;]
+        elif op == &quot;list.insert&quot;:
+            target = so_nguyen(d.get(&quot;target&quot;), &quot;Giá trị cần tìm&quot;)
+            p = self.L.tim(target)
+            if p is None:
+                result, message = False, f&quot;Không có nút {target}; danh sách không đổi.&quot;
+                steps = [&quot;Tìm nút trước khi nối liên kết.&quot;]
+            else:
+                self.L.chen_sau(p, x)
+                result, message = True, f&quot;Đã chèn {x} sau nút {target} đầu tiên.&quot;
+                steps = [&quot;Tìm nút p có giá trị yêu cầu.&quot;, &quot;m.ke = p.ke giữ phần đuôi.&quot;, &quot;p.ke = m nối nút mới; tăng n.&quot;]
+        elif op == &quot;list.delete&quot;:
+            result = self.L.xoa(x)
+            message = f&quot;Đã xoá một nút {x}.&quot; if result else f&quot;Không có {x}; danh sách không đổi.&quot;
+            steps = [&quot;Giữ truoc và p khi tìm.&quot;, &quot;Xoá đầu: dau = p.ke; xoá giữa/cuối: truoc.ke = p.ke.&quot;, &quot;Chỉ giảm n khi thực sự xoá.&quot;]
+        elif op == &quot;list.reverse&quot;:
+            self.L.dao()
+            result, message = self.L.gia_tri(), &quot;Đã đảo chiều các liên kết.&quot;
+            steps = [&quot;Lưu sau = p.ke trước khi sửa.&quot;, &quot;Đảo p.ke về truoc; dời truoc và p.&quot;, &quot;Kết thúc: dau = truoc. Không tạo nút mới.&quot;]
+        elif op == &quot;list.count&quot;:
+            result = bai_lam.dem_gia_tri(self.L, x)
+            message, steps = f&quot;Số lần xuất hiện của {x}: {result}.&quot;, [&quot;Đối chiếu kết quả với số nút có cùng giá trị.&quot;, &quot;Danh sách trước và sau phải giống nhau.&quot;]
+        elif op == &quot;list.delete_all&quot;:
+            result = bai_lam.xoa_tat_ca(self.L, x)
+            message, steps = f&quot;Đã xoá {result} nút mang giá trị {x}.&quot;, [&quot;Không được bỏ sót các nút trùng liên tiếp hoặc ở đầu.&quot;, &quot;n phải giảm đúng bằng số nút đã xoá.&quot;]
+        elif op == &quot;stack.reset&quot;:
+            self.s = NganXep()
+            result, message, steps = None, &quot;Đã làm rỗng ngăn xếp.&quot;, [&quot;Mảng a rỗng; chưa có đỉnh.&quot;]
+        elif op == &quot;stack.push&quot;:
+            self.s.day(x)
+            result, message, steps = x, f&quot;Đã đẩy {x} lên đỉnh.&quot;, [&quot;Thêm x vào cuối mảng.&quot;, &quot;Phần tử cuối mảng là đỉnh ngăn xếp.&quot;]
+        elif op == &quot;stack.pop&quot;:
+            result = self.s.lay()
+            message = &quot;Ngăn xếp rỗng; không thay đổi.&quot; if result is None else f&quot;Đã lấy {result} khỏi đỉnh.&quot;
+            steps = [&quot;Kiểm tra rỗng trước.&quot;, &quot;Nếu có phần tử, lấy và xoá phần tử cuối mảng.&quot;]
+        elif op == &quot;stack.peek&quot;:
+            result = self.s.dinh()
+            message, steps = &quot;Đã xem đỉnh; không lấy ra.&quot;, [&quot;Chỉ đọc phần tử cuối; số phần tử không đổi.&quot;]
+        elif op == &quot;stack.empty&quot;:
+            result = self.s.rong()
+            message, steps = &quot;Đã kiểm tra ngăn xếp rỗng.&quot;, [&quot;Kết quả đúng khi số phần tử bằng 0.&quot;]
+        elif op == &quot;stack.pop_many&quot;:
+            result = bai_lam.lay_nhieu(self.s, k)
+            message, steps = f&quot;Đã lấy {k} phần tử theo LIFO.&quot;, [&quot;Kiểm tra k hợp lệ trước mọi thay đổi.&quot;, &quot;Kết quả ghi theo thứ tự lấy ra, không theo thứ tự đáy tới đỉnh.&quot;]
+        elif op == &quot;queue.reset&quot;:
+            n = so_nguyen(d.get(&quot;capacity&quot;), &quot;Sức chứa&quot;)
+            if not 1 &lt;= n &lt;= 12:
+                raise ValueError(&quot;Sức chứa trên giao diện từ 1 đến 12.&quot;)
+            self.q = HangDoiVong(n)
+            result, message, steps = n, &quot;Đã tạo hàng đợi rỗng.&quot;, [&quot;Cấp phát mảng cố định; dau = 0 và so = 0.&quot;]
+        elif op == &quot;queue.enqueue&quot;:
+            index = (self.q.dau + self.q.so) % self.q.n
+            result = self.q.them(x)
+            message = f&quot;Đã ghi {x} vào ô logic {index}.&quot; if result else &quot;Hàng đầy; từ chối thêm, không ghi đè.&quot;
+            steps = [&quot;Nếu so = n thì dừng, trả về sai.&quot;, &quot;Nếu còn chỗ, ghi tại (dau + so) % n rồi tăng so.&quot;]
+        elif op == &quot;queue.dequeue&quot;:
+            result = self.q.lay()
+            message = &quot;Hàng rỗng; không thay đổi.&quot; if result is None else f&quot;Đã lấy {result} ở đầu hàng.&quot;
+            steps = [&quot;Nếu so = 0, trả về None.&quot;, &quot;Nếu còn phần tử, đọc ô dau; tăng dau theo modulo và giảm so.&quot;, &quot;Giá trị cũ có thể còn trong mảng nhưng không còn thuộc hàng đợi.&quot;]
+        elif op == &quot;queue.peek&quot;:
+            result = self.q.xem_dau()
+            message, steps = &quot;Đã xem đầu hàng; không lấy ra.&quot;, [&quot;Chỉ đọc, không sửa dau hoặc so.&quot;]
+        elif op == &quot;queue.empty&quot;:
+            result = self.q.rong()
+            message, steps = &quot;Đã kiểm tra hàng đợi rỗng.&quot;, [&quot;Kiểm tra so = 0, không dựa vào giá trị còn trong mảng.&quot;]
+        elif op == &quot;queue.peek_k&quot;:
+            result = bai_lam.xem_k(self.q, k)
+            message, steps = f&quot;Đã xem {k} phần tử đầu theo FIFO.&quot;, [&quot;Đi theo chỉ số vòng, không đọc thẳng k ô đầu của mảng.&quot;, &quot;a, dau, so và n không được thay đổi.&quot;]
+        elif op == &quot;brackets.check&quot;:
+            detail = can_ngoac_chi_tiet(d.get(&quot;text&quot;))
+            result, message, trace = detail[&quot;valid&quot;], detail[&quot;reason&quot;], detail[&quot;trace&quot;]
+            steps = [&quot;Ngoặc mở: đẩy vào ngăn xếp.&quot;, &quot;Ngoặc đóng: phải khớp loại ở đỉnh.&quot;, &quot;Cuối chuỗi: ngăn xếp phải rỗng.&quot;]
+        else:
+            raise ValueError(&quot;Không có thao tác này.&quot;)
+        return result, message, steps, trace
+</code></pre></details><details id="code-4"><summary>python/test_bai_tap.py · 103 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&quot;&quot;&quot;Kiểm thử công khai bốn hàm. Bản sinh viên sẽ báo lỗi cho tới khi cài đặt.
+
+Được dùng list làm kết quả đối chiếu trong kiểm thử; không dùng nó thay nút liên kết.
+&quot;&quot;&quot;
+import random
+import unittest
+from cau_truc import DSLK, NganXep, HangDoiVong
+from bai_lam import dem_gia_tri, xoa_tat_ca, lay_nhieu, xem_k
+
+
+def stack(values):
+    s = NganXep()
+    for x in values: s.day(x)
+    return s
+
+
+def queue_wrap():
+    q = HangDoiVong(4)
+    for x in [1, 2, 3, 4]: q.them(x)
+    q.lay(); q.lay(); q.them(5); q.them(6)
+    return q  # a = [5,6,3,4]; FIFO = [3,4,5,6]; dau = 2.
+
+
+class TestBaiTap(unittest.TestCase):
+    def test_dem_rong(self):
+        self.assertEqual(dem_gia_tri(DSLK(), 2), 0)
+
+    def test_dem_trung_khong_doi(self):
+        L = DSLK([2, 1, 2, 2]); head = L.dau
+        self.assertEqual(dem_gia_tri(L, 2), 3)
+        self.assertEqual(L.gia_tri(), [2, 1, 2, 2]); self.assertIs(L.dau, head)
+
+    def test_dem_khong_co(self):
+        self.assertEqual(dem_gia_tri(DSLK([1, 3]), 2), 0)
+
+    def test_xoa_lien_tiep_va_giu_nut_con_lai(self):
+        L = DSLK([2, 2, 1, 2, 3, 2]); p1, p3 = L.tim(1), L.tim(3)
+        self.assertEqual(xoa_tat_ca(L, 2), 4)
+        self.assertEqual(L.gia_tri(), [1, 3]); self.assertEqual(L.n, 2)
+        self.assertIs(L.dau, p1); self.assertIs(p1.ke, p3)
+
+    def test_xoa_het(self):
+        L = DSLK([4, 4, 4]); self.assertEqual(xoa_tat_ca(L, 4), 3)
+        self.assertIsNone(L.dau); self.assertEqual(L.gia_tri(), [])
+
+    def test_xoa_rong(self):
+        self.assertEqual(xoa_tat_ca(DSLK(), 4), 0)
+
+    def test_xoa_khong_co(self):
+        L = DSLK([1, 2]); self.assertEqual(xoa_tat_ca(L, 8), 0)
+        self.assertEqual(L.gia_tri(), [1, 2])
+
+    def test_lay_nhieu_thu_tu(self):
+        s = stack([10, 20, 30]); self.assertEqual(lay_nhieu(s, 2), [30, 20])
+        self.assertEqual(s.a, [10])
+
+    def test_lay_nhieu_khong(self):
+        s = stack([10]); self.assertEqual(lay_nhieu(s, 0), [])
+        self.assertEqual(s.a, [10])
+
+    def test_lay_nhieu_het(self):
+        s = stack([0, 1]); self.assertEqual(lay_nhieu(s, 2), [1, 0])
+        self.assertTrue(s.rong())
+
+    def test_lay_nhieu_k_sai_khong_doi(self):
+        for k in [-1, 4, 1.5, True]:
+            s = stack([10, 20, 30]); before = s.a.copy()
+            with self.assertRaises(ValueError): lay_nhieu(s, k)
+            self.assertEqual(s.a, before)
+
+    def test_lay_nhieu_rong(self):
+        self.assertEqual(lay_nhieu(NganXep(), 0), [])
+        with self.assertRaises(ValueError): lay_nhieu(NganXep(), 1)
+
+    def test_xem_k_quay_vong(self):
+        q = queue_wrap(); before = (q.a.copy(), q.dau, q.so, q.n)
+        self.assertEqual(xem_k(q, 3), [3, 4, 5])
+        self.assertEqual((q.a, q.dau, q.so, q.n), before)
+
+    def test_xem_k_khong_va_het(self):
+        q = queue_wrap(); self.assertEqual(xem_k(q, 0), [])
+        self.assertEqual(xem_k(q, 4), [3, 4, 5, 6])
+
+    def test_xem_k_sai_khong_doi(self):
+        for k in [-1, 5, 1.5, True]:
+            q = queue_wrap(); before = (q.a.copy(), q.dau, q.so, q.n)
+            with self.assertRaises(ValueError): xem_k(q, k)
+            self.assertEqual((q.a, q.dau, q.so, q.n), before)
+
+    def test_xem_k_rong(self):
+        self.assertEqual(xem_k(HangDoiVong(4), 0), [])
+        with self.assertRaises(ValueError): xem_k(HangDoiVong(4), 1)
+
+    def test_danh_sach_ngau_nhien_co_seed(self):
+        rng = random.Random(20260917)
+        for _ in range(200):
+            values = [rng.randint(-3, 3) for _ in range(rng.randrange(30))]
+            x = rng.randint(-3, 3); L = DSLK(values)
+            self.assertEqual(dem_gia_tri(L, x), values.count(x))
+            self.assertEqual(xoa_tat_ca(L, x), values.count(x))
+            self.assertEqual(L.gia_tri(), [v for v in values if v != x])
+
+if __name__ == &quot;__main__&quot;: unittest.main(verbosity=2)
+</code></pre></details><details id="code-5"><summary>python/test_co_ban.py · 163 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&quot;&quot;&quot;Kiểm thử thuật toán mẫu; không yêu cầu hoàn thành bốn hàm bài tập.&quot;&quot;&quot;
+import random
+import unittest
+from cau_truc import DSLK, NganXep, HangDoiVong, so_nguyen, can_ngoac_chi_tiet
+from dich_vu import UngDung
+
+
+class TestDanhSach(unittest.TestCase):
+    def test_rong(self):
+        L = DSLK()
+        self.assertEqual(L.gia_tri(), [])
+        self.assertIsNone(L.tim(1))
+        self.assertFalse(L.xoa(1))
+
+    def test_them_dau_cuoi(self):
+        L = DSLK()
+        L.them_cuoi(20); L.them_dau(10); L.them_cuoi(30)
+        self.assertEqual(L.gia_tri(), [10, 20, 30])
+        self.assertEqual(L.n, 3)
+
+    def test_chen_sau(self):
+        L = DSLK([10, 20, 30])
+        p = L.tim(20); tail = p.ke
+        m = L.chen_sau(p, 25)
+        self.assertIs(m.ke, tail)
+        self.assertEqual(L.gia_tri(), [10, 20, 25, 30])
+
+    def test_xoa_dau_cuoi_giua(self):
+        L = DSLK([1, 2, 3, 4])
+        for x in [1, 4, 2, 3]:
+            self.assertTrue(L.xoa(x))
+        self.assertEqual(L.gia_tri(), [])
+
+    def test_xoa_chi_mot_gia_tri_trung(self):
+        L = DSLK([2, 2, 3])
+        self.assertTrue(L.xoa(2))
+        self.assertEqual(L.gia_tri(), [2, 3])
+        self.assertFalse(L.xoa(99))
+
+    def test_dao_giu_nguyen_doi_tuong_nut(self):
+        L = DSLK([1, 2, 3]); old = [L.tim(i) for i in [1, 2, 3]]
+        L.dao()
+        self.assertEqual(L.gia_tri(), [3, 2, 1])
+        self.assertIs(L.dau, old[2]); self.assertIs(old[2].ke, old[1])
+        L.dao(); self.assertEqual(L.gia_tri(), [1, 2, 3])
+
+    def test_dao_rong_mot_nut(self):
+        for values in [[], [8]]:
+            L = DSLK(values); L.dao(); self.assertEqual(L.gia_tri(), values)
+
+    def test_phat_hien_chu_trinh(self):
+        L = DSLK([1]); L.dau.ke = L.dau
+        with self.assertRaises(ValueError): L.gia_tri()
+
+    def test_phat_hien_n_sai(self):
+        L = DSLK([1]); L.n = 9
+        with self.assertRaises(ValueError): L.gia_tri()
+
+    def test_ngau_nhien_co_seed(self):
+        rng = random.Random(20260917)
+        L, ref = DSLK(), []
+        for _ in range(1000):
+            x, op = rng.randint(-10, 10), rng.randrange(4)
+            if op == 0: L.them_dau(x); ref.insert(0, x)
+            elif op == 1: L.them_cuoi(x); ref.append(x)
+            elif op == 2:
+                found = x in ref
+                self.assertEqual(L.xoa(x), found)
+                if found: ref.remove(x)
+            else: L.dao(); ref.reverse()
+            self.assertEqual(L.gia_tri(), ref)
+
+
+class TestNganXep(unittest.TestCase):
+    def test_rong(self):
+        s = NganXep(); self.assertTrue(s.rong())
+        self.assertIsNone(s.lay()); self.assertIsNone(s.dinh())
+
+    def test_lifo(self):
+        s = NganXep()
+        for x in [10, 20, 30]: s.day(x)
+        self.assertEqual([s.lay(), s.lay(), s.lay()], [30, 20, 10])
+
+    def test_xem_dinh_khong_xoa(self):
+        s = NganXep(); s.day(0)
+        self.assertEqual(s.dinh(), 0); self.assertEqual(s.a, [0])
+
+
+class TestHangDoi(unittest.TestCase):
+    def test_suc_chua_sai(self):
+        for n in [0, -1, True, 2.5]:
+            with self.assertRaises(ValueError): HangDoiVong(n)
+
+    def test_rong(self):
+        q = HangDoiVong(4)
+        self.assertTrue(q.rong()); self.assertIsNone(q.lay())
+        self.assertIsNone(q.xem_dau()); self.assertEqual(q.gia_tri(), [])
+
+    def test_day_khong_ghi_de(self):
+        q = HangDoiVong(2); q.them(1); q.them(2)
+        before = (q.a.copy(), q.dau, q.so)
+        self.assertFalse(q.them(3))
+        self.assertEqual((q.a, q.dau, q.so), before)
+
+    def test_quay_vong_va_o_cu(self):
+        q = HangDoiVong(4)
+        for x in [1, 2, 3, 4]: q.them(x)
+        self.assertEqual(q.lay(), 1)
+        self.assertEqual(q.a, [1, 2, 3, 4])
+        self.assertEqual(q.gia_tri(), [2, 3, 4])
+        q.them(5)
+        self.assertEqual(q.a, [5, 2, 3, 4])
+        self.assertEqual(q.gia_tri(), [2, 3, 4, 5])
+
+    def test_suc_chua_mot(self):
+        q = HangDoiVong(1); self.assertTrue(q.them(0))
+        self.assertFalse(q.them(1)); self.assertEqual(q.lay(), 0)
+        self.assertTrue(q.them(2)); self.assertEqual(q.lay(), 2)
+
+    def test_ngau_nhien_co_seed(self):
+        rng = random.Random(20260917); q = HangDoiVong(7); ref = []
+        for _ in range(1000):
+            if rng.random() &lt; 0.6:
+                x = rng.randint(-10, 10); allowed = len(ref) &lt; 7
+                self.assertEqual(q.them(x), allowed)
+                if allowed: ref.append(x)
+            else:
+                expected = ref.pop(0) if ref else None
+                self.assertEqual(q.lay(), expected)
+            self.assertEqual(q.gia_tri(), ref)
+
+
+class TestNgoacVaDauVao(unittest.TestCase):
+    def test_ngoac_dung(self):
+        for s in [&quot;&quot;, &quot;a+b&quot;, &quot;(a+[b*c])-{d/e}&quot;, &quot;((()))&quot;, &quot;{[(a+b)*c]}&quot;]:
+            self.assertTrue(can_ngoac_chi_tiet(s)[&quot;valid&quot;])
+
+    def test_ngoac_sai(self):
+        for s in [&quot;)(&quot;, &quot;([)]&quot;, &quot;(()&quot;, &quot;(a+[b)*c]&quot;]:
+            self.assertFalse(can_ngoac_chi_tiet(s)[&quot;valid&quot;])
+
+    def test_vi_tri_unicode(self):
+        trace = can_ngoac_chi_tiet(&quot;á[)]&quot;)[&quot;trace&quot;]
+        self.assertEqual(trace[-1][&quot;pos&quot;], 3)
+        self.assertFalse(trace[-1][&quot;ok&quot;])
+
+    def test_kiem_tra_gia_tri(self):
+        for x in [True, 2.5, &quot;2&quot;, None, 1000001]:
+            with self.assertRaises(ValueError): so_nguyen(x)
+        self.assertEqual(so_nguyen(0), 0)
+
+    def test_service_rollback_input(self):
+        app = UngDung(); before = app.trang_thai()
+        with self.assertRaises(ValueError): app.thuc_hien({&quot;op&quot;:&quot;list.reset&quot;, &quot;values&quot;:[1, &quot;sai&quot;]})
+        self.assertEqual(app.trang_thai(), before)
+
+    def test_service_cau_lenh(self):
+        app = UngDung()
+        a = app.thuc_hien({&quot;op&quot;:&quot;list.insert&quot;,&quot;x&quot;:25,&quot;target&quot;:20})
+        self.assertEqual(a[&quot;before&quot;][&quot;list&quot;][&quot;values&quot;], [10, 20, 30])
+        self.assertEqual(a[&quot;state&quot;][&quot;list&quot;][&quot;values&quot;], [10, 20, 25, 30])
+
+if __name__ == &quot;__main__&quot;: unittest.main(verbosity=2)
+</code></pre></details><details id="code-6"><summary>julia/BaiLam.jl · 70 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>module BaiLam
+using ..CauTruc
+const BAN = &quot;Đáp án&quot;
+struct ChuaHoanThanh &lt;: Exception
+    msg::String
+end
+Base.showerror(io::IO, e::ChuaHoanThanh) = print(io, e.msg)
+export dem_gia_tri, xoa_tat_ca!, lay_nhieu!, xem_k
+
+&quot;&quot;&quot;Đếm các nút có gt == x, không thay đổi danh sách.&quot;&quot;&quot;
+function dem_gia_tri(L::DSLK, x)
+    x = so_nguyen(x)
+    dem = 0
+    p = L.dau
+    while p !== nothing
+        p.gt == x &amp;&amp; (dem += 1)
+        p = p.ke
+    end
+    return dem
+end
+
+&quot;&quot;&quot;Một lượt duyệt, không tạo nút mới, trả về số nút đã xoá.&quot;&quot;&quot;
+function xoa_tat_ca!(L::DSLK, x)
+    x = so_nguyen(x)
+    dem = 0
+    truoc = nothing
+    p = L.dau
+    while p !== nothing
+        sau = p.ke
+        if p.gt == x
+            if truoc === nothing
+                L.dau = sau
+            else
+                truoc.ke = sau
+            end
+            L.n -= 1
+            dem += 1
+            # Không dời truoc khi nút hiện tại bị loại.
+        else
+            truoc = p
+        end
+        p = sau
+    end
+    return dem
+end
+
+&quot;&quot;&quot;Lấy đúng k giá trị LIFO; kiểm tra k trước mọi thay đổi.&quot;&quot;&quot;
+function lay_nhieu!(s::NganXep, k)
+    if !(k isa Integer) || k isa Bool || !(0 &lt;= k &lt;= length(s.a))
+        throw(ArgumentError(&quot;k phải là số nguyên từ 0 đến số phần tử ngăn xếp.&quot;))
+    end
+    out = Int[]
+    for _ in 1:k
+        push!(out, lay!(s))
+    end
+    return out
+end
+
+&quot;&quot;&quot;Xem k giá trị FIFO mà không sửa a, dau, so, n.&quot;&quot;&quot;
+function xem_k(q::HangDoiVong, k)
+    if !(k isa Integer) || k isa Bool || !(0 &lt;= k &lt;= q.so)
+        throw(ArgumentError(&quot;k phải là số nguyên từ 0 đến số phần tử hàng đợi.&quot;))
+    end
+    out = Int[]
+    for i in 0:(k - 1)
+        push!(out, q.a[mod(q.dau + i, q.n) + 1])
+    end
+    return out
+end
+end # module
+</code></pre></details><details id="code-7"><summary>julia/CauTruc.jl · 199 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&quot;&quot;&quot;Thuật toán Chương 5. Mô-đun này chỉ dùng Julia Base, không cần gói ngoài.&quot;&quot;&quot;
+module CauTruc
+export Nut, DSLK, NganXep, HangDoiVong, so_nguyen, them_dau!, them_cuoi!,
+       tim, chen_sau!, xoa!, dao!, gia_tri, day!, lay!, dinh, rong, them!,
+       xem_dau, can_ngoac_chi_tiet
+
+function so_nguyen(x, ten=&quot;Giá trị&quot;)
+    if !(x isa Integer) || x isa Bool || !(-1_000_000 &lt;= x &lt;= 1_000_000)
+        throw(ArgumentError(&quot;$ten phải là số nguyên từ -1000000 đến 1000000.&quot;))
+    end
+    return Int(x)
+end
+
+mutable struct Nut
+    gt::Int
+    ke::Union{Nut,Nothing}
+end
+Nut(gt::Int) = Nut(gt, nothing)
+
+mutable struct DSLK
+    dau::Union{Nut,Nothing}
+    n::Int
+end
+DSLK() = DSLK(nothing, 0)
+function DSLK(values::AbstractVector)
+    L = DSLK()
+    for x in values
+        them_cuoi!(L, x)
+    end
+    return L
+end
+
+function them_dau!(L::DSLK, gt)
+    L.dau = Nut(so_nguyen(gt), L.dau)
+    L.n += 1
+    return L
+end
+
+function them_cuoi!(L::DSLK, gt)
+    m = Nut(so_nguyen(gt))
+    if L.dau === nothing
+        L.dau = m
+    else
+        p = L.dau
+        while p.ke !== nothing
+            p = p.ke
+        end
+        p.ke = m
+    end
+    L.n += 1
+    return L
+end
+
+function tim(L::DSLK, gt)
+    gt = so_nguyen(gt)
+    p = L.dau
+    while p !== nothing &amp;&amp; p.gt != gt
+        p = p.ke
+    end
+    return p
+end
+
+&quot;&quot;&quot;Điều kiện: p thuộc danh sách L, thường nhận từ hàm tim.&quot;&quot;&quot;
+function chen_sau!(L::DSLK, p::Nut, gt)
+    m = Nut(so_nguyen(gt), p.ke)  # Giữ đuôi trước khi thay p.ke.
+    p.ke = m
+    L.n += 1
+    return m
+end
+
+function xoa!(L::DSLK, gt)
+    gt = so_nguyen(gt)
+    truoc = nothing
+    p = L.dau
+    while p !== nothing &amp;&amp; p.gt != gt
+        truoc = p
+        p = p.ke
+    end
+    p === nothing &amp;&amp; return false
+    if truoc === nothing
+        L.dau = p.ke
+    else
+        truoc.ke = p.ke
+    end
+    L.n -= 1
+    return true
+end
+
+function dao!(L::DSLK)
+    truoc = nothing
+    p = L.dau
+    while p !== nothing
+        sau = p.ke
+        p.ke = truoc
+        truoc = p
+        p = sau
+    end
+    L.dau = truoc
+    return L
+end
+
+&quot;&quot;&quot;Bản sao dùng để hiển thị/kiểm thử; phát hiện chu trình và n không khớp.&quot;&quot;&quot;
+function gia_tri(L::DSLK)
+    out = Int[]
+    seen = IdDict{Nut,Bool}()
+    p = L.dau
+    while p !== nothing
+        haskey(seen, p) &amp;&amp; throw(ArgumentError(&quot;Danh sách có chu trình. Kiểm tra ke.&quot;))
+        seen[p] = true
+        push!(out, p.gt)
+        p = p.ke
+    end
+    length(out) == L.n || throw(ArgumentError(&quot;n không bằng số nút thực tế.&quot;))
+    return out
+end
+
+mutable struct NganXep
+    a::Vector{Int}
+end
+NganXep() = NganXep(Int[])
+day!(s::NganXep, x) = (push!(s.a, so_nguyen(x)); s)
+lay!(s::NganXep) = isempty(s.a) ? nothing : pop!(s.a)
+dinh(s::NganXep) = isempty(s.a) ? nothing : s.a[end]
+rong(s::NganXep) = isempty(s.a)
+
+mutable struct HangDoiVong
+    a::Vector{Union{Int,Nothing}}
+    n::Int
+    dau::Int  # Chỉ số logic từ 0; khi truy cập Vector phải cộng 1.
+    so::Int
+end
+function HangDoiVong(n::Integer=5)
+    (n isa Bool || n &lt;= 0) &amp;&amp; throw(ArgumentError(&quot;Sức chứa phải là số nguyên dương.&quot;))
+    a = Vector{Union{Int,Nothing}}(undef, n)
+    fill!(a, nothing)
+    return HangDoiVong(a, Int(n), 0, 0)
+end
+function them!(q::HangDoiVong, x)
+    x = so_nguyen(x)
+    q.so == q.n &amp;&amp; return false
+    q.a[mod(q.dau + q.so, q.n) + 1] = x
+    q.so += 1
+    return true
+end
+function lay!(q::HangDoiVong)
+    q.so == 0 &amp;&amp; return nothing
+    x = q.a[q.dau + 1]
+    # Ô cũ giữ giá trị, nhưng đã nằm ngoài các phần tử hợp lệ.
+    q.dau = mod(q.dau + 1, q.n)
+    q.so -= 1
+    return x
+end
+xem_dau(q::HangDoiVong) = q.so == 0 ? nothing : q.a[q.dau + 1]
+rong(q::HangDoiVong) = q.so == 0
+function gia_tri(q::HangDoiVong)
+    out = Int[]
+    for i in 0:(q.so - 1)
+        push!(out, q.a[mod(q.dau + i, q.n) + 1])
+    end
+    return out
+end
+
+&quot;&quot;&quot;Kiểm tra cấu trúc ngoặc, không phân tích cú pháp mã nguồn/dấu nháy.&quot;&quot;&quot;
+function can_ngoac_chi_tiet(text::AbstractString)
+    length(text) &lt;= 200 || throw(ArgumentError(&quot;Chuỗi kiểm tra tối đa 200 ký tự.&quot;))
+    cap = Dict(&#x27;)&#x27; =&gt; &#x27;(&#x27;, &#x27;]&#x27; =&gt; &#x27;[&#x27;, &#x27;}&#x27; =&gt; &#x27;{&#x27;)
+    st = Char[]
+    trace = Any[]
+    # enumerate đếm ký tự, không dùng chỉ số byte UTF-8 của chuỗi Julia.
+    for (i, c) in enumerate(text)
+        good = true
+        if c in &quot;([{&quot;
+            push!(st, c)
+            note = &quot;Đưa ngoặc mở vào đỉnh.&quot;
+        elseif c in &quot;)]}&quot;
+            if isempty(st)
+                note, good = &quot;Ngoặc đóng không có ngoặc mở tương ứng.&quot;, false
+            elseif st[end] != cap[c]
+                note, good = &quot;Ngoặc đóng khác loại với ngoặc mở ở đỉnh.&quot;, false
+            else
+                pop!(st)
+                note = &quot;Khớp loại: lấy ngoặc mở khỏi đỉnh.&quot;
+            end
+        else
+            note = &quot;Không phải dấu ngoặc: bỏ qua.&quot;
+        end
+        push!(trace, Dict(&quot;pos&quot; =&gt; i, &quot;char&quot; =&gt; string(c), &quot;stack&quot; =&gt; string.(st),
+                         &quot;note&quot; =&gt; note, &quot;ok&quot; =&gt; good))
+        if !good
+            return Dict(&quot;valid&quot; =&gt; false, &quot;reason&quot; =&gt; note, &quot;trace&quot; =&gt; trace)
+        end
+    end
+    good = isempty(st)
+    note = good ? &quot;Các dấu ngoặc khớp nhau.&quot; : &quot;Còn ngoặc mở chưa được đóng.&quot;
+    push!(trace, Dict(&quot;pos&quot; =&gt; length(text) + 1, &quot;char&quot; =&gt; &quot;&quot;, &quot;stack&quot; =&gt; string.(st),
+                     &quot;note&quot; =&gt; note, &quot;ok&quot; =&gt; good))
+    return Dict(&quot;valid&quot; =&gt; good, &quot;reason&quot; =&gt; note, &quot;trace&quot; =&gt; trace)
+end
+end # module
+</code></pre></details><details id="code-8"><summary>julia/DichVu.jl · 165 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>module DichVu
+using ..CauTruc
+using ..BaiLam
+export UngDung, trang_thai, thuc_hien!
+
+mutable struct UngDung
+    L::DSLK
+    s::NganXep
+    q::HangDoiVong
+end
+UngDung() = UngDung(DSLK([10, 20, 30]), NganXep(), HangDoiVong(5))
+
+function trang_thai(u::UngDung)
+    q = u.q
+    return Dict(
+        &quot;language&quot; =&gt; &quot;Julia&quot;, &quot;edition&quot; =&gt; (isdefined(BaiLam, :BAN) ? BaiLam.BAN : &quot;Đáp án&quot;),
+        &quot;list&quot; =&gt; Dict(&quot;values&quot; =&gt; gia_tri(u.L), &quot;n&quot; =&gt; u.L.n),
+        &quot;stack&quot; =&gt; Dict(&quot;values&quot; =&gt; copy(u.s.a), &quot;n&quot; =&gt; length(u.s.a), &quot;top&quot; =&gt; dinh(u.s)),
+        &quot;queue&quot; =&gt; Dict(&quot;values&quot; =&gt; gia_tri(q), &quot;a&quot; =&gt; copy(q.a), &quot;n&quot; =&gt; q.n,
+                        &quot;dau&quot; =&gt; q.dau, &quot;so&quot; =&gt; q.so,
+                        &quot;active&quot; =&gt; [mod(q.dau + i, q.n) for i in 0:(q.so - 1)]))
+end
+
+function thuc_hien!(u::UngDung, d::AbstractDict)
+    before = trang_thai(u)
+    backup = deepcopy((u.L, u.s, u.q))
+    try
+        result, message, steps, trace = xu_ly!(u, d)
+        state = trang_thai(u)
+        return Dict(&quot;ok&quot; =&gt; true, &quot;result&quot; =&gt; result, &quot;message&quot; =&gt; message,
+                    &quot;steps&quot; =&gt; steps, &quot;trace&quot; =&gt; trace, &quot;before&quot; =&gt; before, &quot;state&quot; =&gt; state)
+    catch
+        u.L, u.s, u.q = backup
+        rethrow()
+    end
+end
+
+function xu_ly!(u::UngDung, d::AbstractDict)
+    op = get(d, &quot;op&quot;, &quot;&quot;)
+    xops = (&quot;list.prepend&quot;, &quot;list.append&quot;, &quot;list.find&quot;, &quot;list.insert&quot;, &quot;list.delete&quot;,
+            &quot;list.count&quot;, &quot;list.delete_all&quot;, &quot;stack.push&quot;, &quot;queue.enqueue&quot;)
+    x = op in xops ? so_nguyen(get(d, &quot;x&quot;, nothing)) : nothing
+    if op in (&quot;list.prepend&quot;, &quot;list.append&quot;, &quot;list.insert&quot;) &amp;&amp; u.L.n &gt;= 50
+        throw(ArgumentError(&quot;Giao diện giới hạn danh sách ở 50 nút.&quot;))
+    end
+    if op == &quot;stack.push&quot; &amp;&amp; length(u.s.a) &gt;= 50
+        throw(ArgumentError(&quot;Giao diện giới hạn ngăn xếp ở 50 phần tử.&quot;))
+    end
+    k = op in (&quot;stack.pop_many&quot;, &quot;queue.peek_k&quot;) ? so_nguyen(get(d, &quot;k&quot;, nothing), &quot;k&quot;) : nothing
+    trace = Any[]
+    result = nothing
+    message = &quot;&quot;
+    steps = String[]
+    if op == &quot;all.reset&quot;
+        u.L, u.s, u.q = DSLK([10, 20, 30]), NganXep(), HangDoiVong(5)
+        message = &quot;Đã khôi phục dữ liệu ban đầu.&quot;
+        steps = [&quot;Danh sách 10 → 20 → 30. Ngăn xếp và hàng đợi rỗng.&quot;]
+    elseif op == &quot;list.reset&quot;
+        a = get(d, &quot;values&quot;, nothing)
+        (a isa AbstractVector &amp;&amp; length(a) &lt;= 50) || throw(ArgumentError(&quot;Nhập một dãy không quá 50 số nguyên.&quot;))
+        a = [so_nguyen(v) for v in a]
+        u.L = DSLK(a)
+        result, message = u.L.n, &quot;Đã tạo danh sách mới.&quot;
+        steps = [&quot;Mỗi giá trị tạo một nút riêng.&quot;, &quot;Nút cuối có ke = nothing; n là số nút.&quot;]
+    elseif op == &quot;list.prepend&quot;
+        them_dau!(u.L, x)
+        result, message = x, &quot;Đã thêm $x vào đầu.&quot;
+        steps = [&quot;Tạo nút m chứa x.&quot;, &quot;m.ke giữ đầu cũ; dau trỏ tới m; tăng n.&quot;]
+    elseif op == &quot;list.append&quot;
+        them_cuoi!(u.L, x)
+        result, message = x, &quot;Đã thêm $x vào cuối.&quot;
+        steps = [&quot;Rỗng: cập nhật dau. Không rỗng: duyệt đến nút cuối rồi nối m.&quot;, &quot;Tăng n lên 1.&quot;]
+    elseif op == &quot;list.find&quot;
+        p, i = u.L.dau, 1
+        while p !== nothing &amp;&amp; p.gt != x
+            p, i = p.ke, i + 1
+        end
+        result = p === nothing ? nothing : i
+        message = p === nothing ? &quot;Không có giá trị $x.&quot; : &quot;Tìm thấy $x ở vị trí $i.&quot;
+        steps = [&quot;Lần theo ke từ dau. Vị trí hiển thị bắt đầu từ 1.&quot;, &quot;Giá trị trùng: chọn nút đầu tiên.&quot;]
+    elseif op == &quot;list.insert&quot;
+        target = so_nguyen(get(d, &quot;target&quot;, nothing), &quot;Giá trị cần tìm&quot;)
+        p = tim(u.L, target)
+        if p === nothing
+            result, message = false, &quot;Không có nút $target; danh sách không đổi.&quot;
+            steps = [&quot;Cần tìm được nút p trước khi chèn.&quot;]
+        else
+            chen_sau!(u.L, p, x)
+            result, message = true, &quot;Đã chèn $x sau nút $target đầu tiên.&quot;
+            steps = [&quot;m.ke = p.ke giữ phần đuôi.&quot;, &quot;p.ke = m nối nút mới; tăng n.&quot;]
+        end
+    elseif op == &quot;list.delete&quot;
+        result = xoa!(u.L, x)
+        message = result ? &quot;Đã xoá một nút $x.&quot; : &quot;Không có $x; danh sách không đổi.&quot;
+        steps = [&quot;Giữ truoc và p khi tìm.&quot;, &quot;Xoá đầu sửa dau; trường hợp khác sửa truoc.ke.&quot;, &quot;Chỉ giảm n khi xoá được.&quot;]
+    elseif op == &quot;list.reverse&quot;
+        dao!(u.L)
+        result, message = gia_tri(u.L), &quot;Đã đảo chiều các liên kết.&quot;
+        steps = [&quot;Lưu sau = p.ke trước khi sửa.&quot;, &quot;p.ke = truoc; dời truoc và p.&quot;, &quot;Cuối cùng dau = truoc; không tạo nút mới.&quot;]
+    elseif op == &quot;list.count&quot;
+        result = dem_gia_tri(u.L, x)
+        message = &quot;Số lần xuất hiện của $x: $result.&quot;
+        steps = [&quot;Đếm theo gt; không thay đổi các liên kết hoặc n.&quot;]
+    elseif op == &quot;list.delete_all&quot;
+        result = xoa_tat_ca!(u.L, x)
+        message = &quot;Đã xoá $result nút mang giá trị $x.&quot;
+        steps = [&quot;Không bỏ sót các nút trùng liên tiếp hoặc ở đầu.&quot;, &quot;n giảm bằng số nút đã xoá.&quot;]
+    elseif op == &quot;stack.reset&quot;
+        u.s = NganXep()
+        message, steps = &quot;Đã làm rỗng ngăn xếp.&quot;, [&quot;Mảng a rỗng, chưa có đỉnh.&quot;]
+    elseif op == &quot;stack.push&quot;
+        day!(u.s, x)
+        result, message = x, &quot;Đã đẩy $x lên đỉnh.&quot;
+        steps = [&quot;push! thêm x vào cuối Vector; phần tử cuối là đỉnh.&quot;]
+    elseif op == &quot;stack.pop&quot;
+        result = lay!(u.s)
+        message = result === nothing ? &quot;Ngăn xếp rỗng; không thay đổi.&quot; : &quot;Đã lấy $result khỏi đỉnh.&quot;
+        steps = [&quot;Kiểm tra rỗng; nếu có phần tử thì pop! lấy và xoá phần tử cuối.&quot;]
+    elseif op == &quot;stack.peek&quot;
+        result, message = dinh(u.s), &quot;Đã xem đỉnh; không lấy ra.&quot;
+        steps = [&quot;Đọc s.a[end] nếu không rỗng, không đổi số phần tử.&quot;]
+    elseif op == &quot;stack.empty&quot;
+        result, message = rong(u.s), &quot;Đã kiểm tra ngăn xếp rỗng.&quot;
+        steps = [&quot;Kết quả đúng khi số phần tử bằng 0.&quot;]
+    elseif op == &quot;stack.pop_many&quot;
+        result = lay_nhieu!(u.s, k)
+        message = &quot;Đã lấy $k phần tử theo LIFO.&quot;
+        steps = [&quot;Kiểm tra k trước mọi thay đổi.&quot;, &quot;Trả kết quả theo thứ tự lấy ra, không phải đáy tới đỉnh.&quot;]
+    elseif op == &quot;queue.reset&quot;
+        n = so_nguyen(get(d, &quot;capacity&quot;, nothing), &quot;Sức chứa&quot;)
+        1 &lt;= n &lt;= 12 || throw(ArgumentError(&quot;Sức chứa trên giao diện từ 1 đến 12.&quot;))
+        u.q = HangDoiVong(n)
+        result, message = n, &quot;Đã tạo hàng đợi rỗng.&quot;
+        steps = [&quot;Cấp phát mảng cố định; dau = 0, so = 0.&quot;]
+    elseif op == &quot;queue.enqueue&quot;
+        index = mod(u.q.dau + u.q.so, u.q.n)
+        result = them!(u.q, x)
+        message = result ? &quot;Đã ghi $x vào ô logic $index.&quot; : &quot;Hàng đầy; từ chối thêm, không ghi đè.&quot;
+        steps = [&quot;Nếu so = n: trả về false.&quot;, &quot;Còn chỗ: ghi ô mod(dau + so, n) + 1 của Vector, rồi tăng so.&quot;]
+    elseif op == &quot;queue.dequeue&quot;
+        result = lay!(u.q)
+        message = result === nothing ? &quot;Hàng rỗng; không thay đổi.&quot; : &quot;Đã lấy $result ở đầu hàng.&quot;
+        steps = [&quot;Rỗng: trả về nothing.&quot;, &quot;Đọc q.a[dau + 1], tăng dau theo modulo và giảm so.&quot;, &quot;Ô cũ vẫn có thể giữ giá trị, nhưng không thuộc hàng đợi logic.&quot;]
+    elseif op == &quot;queue.peek&quot;
+        result, message = xem_dau(u.q), &quot;Đã xem đầu hàng; không lấy ra.&quot;
+        steps = [&quot;Chỉ đọc, không sửa dau hoặc so.&quot;]
+    elseif op == &quot;queue.empty&quot;
+        result, message = rong(u.q), &quot;Đã kiểm tra hàng đợi rỗng.&quot;
+        steps = [&quot;Dựa vào so = 0, không dựa vào giá trị còn trong các ô.&quot;]
+    elseif op == &quot;queue.peek_k&quot;
+        result = xem_k(u.q, k)
+        message = &quot;Đã xem $k phần tử đầu theo FIFO.&quot;
+        steps = [&quot;Đi theo chỉ số vòng, không đọc thẳng k ô đầu mảng.&quot;, &quot;a, dau, so, n không được thay đổi.&quot;]
+    elseif op == &quot;brackets.check&quot;
+        text = get(d, &quot;text&quot;, nothing)
+        text isa AbstractString || throw(ArgumentError(&quot;Cần nhập một chuỗi.&quot;))
+        detail = can_ngoac_chi_tiet(text)
+        result, message, trace = detail[&quot;valid&quot;], detail[&quot;reason&quot;], detail[&quot;trace&quot;]
+        steps = [&quot;Mở: đẩy vào đỉnh. Đóng: phải khớp loại ở đỉnh.&quot;, &quot;Cuối chuỗi: ngăn xếp phải rỗng.&quot;]
+    else
+        throw(ArgumentError(&quot;Không có thao tác này.&quot;))
+    end
+    return result, message, steps, trace
+end
+end # module
+</code></pre></details><details id="code-9"><summary>julia/Project.toml · 8 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>[deps]
+HTTP = &quot;cd3eb016-35fb-5094-929b-558a96fad6f3&quot;
+JSON3 = &quot;0f8b85d8-7281-11e9-16c2-39a750bddbf1&quot;
+
+[compat]
+julia = &quot;1.10&quot;
+HTTP = &quot;=1.10.19&quot;
+JSON3 = &quot;=1.14.3&quot;
+</code></pre></details><details id="code-10"><summary>julia/app.jl · 90 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code># Chạy từ thư mục gói: julia --project=julia julia/app.jl [cổng]
+# Máy chủ cục bộ, chỉ dành cho một người học; không đưa lên Internet.
+using HTTP, JSON3, Random
+include(&quot;CauTruc.jl&quot;)
+include(&quot;BaiLam.jl&quot;)
+include(&quot;DichVu.jl&quot;)
+using .DichVu
+
+function main()
+    port = isempty(ARGS) ? 8001 : tryparse(Int, ARGS[1])
+    if port === nothing || !(1024 &lt;= port &lt;= 65535)
+        error(&quot;Cổng phải là số nguyên trong 1024..65535.&quot;)
+    end
+    web = normpath(joinpath(@__DIR__, &quot;..&quot;, &quot;web&quot;))
+    isfile(joinpath(web, &quot;index.html&quot;)) || error(&quot;Thiếu thư mục web. Giải nén toàn bộ gói.&quot;)
+    static = Dict(&quot;/&quot; =&gt; (&quot;index.html&quot;, &quot;text/html; charset=utf-8&quot;),
+                  &quot;/style.css&quot; =&gt; (&quot;style.css&quot;, &quot;text/css; charset=utf-8&quot;),
+                  &quot;/app.js&quot; =&gt; (&quot;app.js&quot;, &quot;text/javascript; charset=utf-8&quot;))
+    app = UngDung()
+    guard = ReentrantLock()
+    token = bytes2hex(rand(Random.RandomDevice(), UInt8, 32))
+    hosts = Set([&quot;127.0.0.1:$port&quot;, &quot;localhost:$port&quot;])
+    origins = Set([&quot;http://127.0.0.1:$port&quot;, &quot;http://localhost:$port&quot;])
+
+    function response(status, body, mime)
+        headers = [&quot;Content-Type&quot; =&gt; mime, &quot;Cache-Control&quot; =&gt; &quot;no-store&quot;,
+                   &quot;X-Content-Type-Options&quot; =&gt; &quot;nosniff&quot;, &quot;X-Frame-Options&quot; =&gt; &quot;DENY&quot;,
+                   &quot;Content-Security-Policy&quot; =&gt; &quot;default-src &#x27;self&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; data:; connect-src &#x27;self&#x27;; frame-ancestors &#x27;none&#x27;; base-uri &#x27;none&#x27;&quot;]
+        return HTTP.Response(status, headers, body)
+    end
+    json_response(status, d) = response(status, JSON3.write(d), &quot;application/json; charset=utf-8&quot;)
+    failure(status, msg) = json_response(status, Dict(&quot;ok&quot; =&gt; false, &quot;message&quot; =&gt; msg))
+
+    function handler(req::HTTP.Request)
+        HTTP.header(req, &quot;Host&quot;, &quot;&quot;) in hosts || return failure(403, &quot;Host không hợp lệ.&quot;)
+        path = first(split(String(req.target), &#x27;?&#x27;; limit=2))
+        if req.method == &quot;GET&quot;
+            if path == &quot;/api/state&quot;
+                state = lock(guard) do
+                    trang_thai(app)
+                end
+                return json_response(200, Dict(&quot;ok&quot; =&gt; true, &quot;state&quot; =&gt; state, &quot;token&quot; =&gt; token))
+            elseif path == &quot;/favicon.ico&quot;
+                return response(204, &quot;&quot;, &quot;image/x-icon&quot;)
+            elseif haskey(static, path)
+                name, mime = static[path]
+                return response(200, read(joinpath(web, name)), mime)
+            end
+            return failure(404, &quot;Không tìm thấy đường dẫn.&quot;)
+        elseif req.method == &quot;POST&quot; &amp;&amp; path == &quot;/api/action&quot;
+            if !(HTTP.header(req, &quot;Origin&quot;, &quot;&quot;) in origins) || HTTP.header(req, &quot;X-Lab-Token&quot;, &quot;&quot;) != token
+                return failure(403, &quot;Tải lại trang từ địa chỉ máy chủ cục bộ.&quot;)
+            end
+            startswith(HTTP.header(req, &quot;Content-Type&quot;, &quot;&quot;), &quot;application/json&quot;) || return failure(415, &quot;Cần dữ liệu JSON.&quot;)
+            length(req.body) &lt;= 16384 || return failure(413, &quot;Yêu cầu quá dài.&quot;)
+            local d
+            try
+                d = JSON3.read(String(req.body), Dict{String,Any})
+            catch
+                return failure(400, &quot;JSON không hợp lệ; cần một đối tượng.&quot;)
+            end
+            try
+                value = lock(guard) do
+                    thuc_hien!(app, d)
+                end
+                return json_response(200, value)
+            catch e
+                if e isa BaiLam.ChuaHoanThanh
+                    return failure(422, e.msg)
+                elseif e isa ArgumentError
+                    return failure(400, e.msg)
+                end
+                return failure(500, &quot;Lỗi trong mã: $(typeof(e)). Kiểm tra hàm vừa sửa và chạy bộ kiểm thử.&quot;)
+            end
+        end
+        return failure(405, &quot;Phương thức không được hỗ trợ.&quot;)
+    end
+    println(&quot;Julia: http://127.0.0.1:$port&quot;)
+    println(&quot;Mở địa chỉ trên trong trình duyệt. Giữ terminal mở. Dừng bằng Ctrl+C.&quot;)
+    try
+        HTTP.serve(handler, &quot;127.0.0.1&quot;, port; verbose=false, readtimeout=10)
+    catch e
+        if e isa InterruptException
+            println(&quot;Đã dừng máy chủ.&quot;)
+        else
+            rethrow()
+        end
+    end
+end
+main()
+</code></pre></details><details id="code-11"><summary>julia/test_bai_tap.jl · 80 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>using Test, Random
+include(&quot;CauTruc.jl&quot;)
+include(&quot;BaiLam.jl&quot;)
+using .CauTruc, .BaiLam
+
+function make_stack(values)
+    s = NganXep()
+    for x in values; day!(s, x); end
+    return s
+end
+function queue_wrap()
+    q = HangDoiVong(4)
+    for x in 1:4; them!(q, x); end
+    lay!(q); lay!(q); them!(q, 5); them!(q, 6)
+    return q
+end
+
+@testset &quot;BT1: đếm giá trị&quot; begin
+    @test dem_gia_tri(DSLK(), 2) == 0
+    L = DSLK([2, 1, 2, 2]); head = L.dau
+    @test dem_gia_tri(L, 2) == 3
+    @test gia_tri(L) == [2, 1, 2, 2]
+    @test L.dau === head
+    @test dem_gia_tri(DSLK([1, 3]), 2) == 0
+end
+@testset &quot;BT2: xoá mọi giá trị&quot; begin
+    L = DSLK([2, 2, 1, 2, 3, 2]); p1, p3 = tim(L, 1), tim(L, 3)
+    @test xoa_tat_ca!(L, 2) == 4
+    @test gia_tri(L) == [1, 3]
+    @test L.n == 2
+    @test L.dau === p1
+    @test p1.ke === p3
+    L = DSLK([4, 4, 4])
+    @test xoa_tat_ca!(L, 4) == 3
+    @test L.dau === nothing
+    @test gia_tri(L) == Int[]
+    @test xoa_tat_ca!(DSLK(), 4) == 0
+    L = DSLK([1, 2]); @test xoa_tat_ca!(L, 8) == 0
+    @test gia_tri(L) == [1, 2]
+end
+@testset &quot;BT3: lấy nhiều theo LIFO&quot; begin
+    s = make_stack([10, 20, 30])
+    @test lay_nhieu!(s, 2) == [30, 20]
+    @test s.a == [10]
+    @test lay_nhieu!(s, 0) == Int[]
+    @test s.a == [10]
+    @test lay_nhieu!(s, 1) == [10]
+    @test rong(s)
+    @test lay_nhieu!(s, 0) == Int[]
+    for k in (-1, 4, 1.5, true)
+        s = make_stack([10, 20, 30]); before = copy(s.a)
+        @test_throws ArgumentError lay_nhieu!(s, k)
+        @test s.a == before
+    end
+    @test_throws ArgumentError lay_nhieu!(NganXep(), 1)
+end
+@testset &quot;BT4: xem k phần tử FIFO&quot; begin
+    q = queue_wrap(); before = (copy(q.a), q.dau, q.so, q.n)
+    @test xem_k(q, 3) == [3, 4, 5]
+    @test (q.a, q.dau, q.so, q.n) == before
+    @test xem_k(q, 0) == Int[]
+    @test xem_k(q, 4) == [3, 4, 5, 6]
+    for k in (-1, 5, 1.5, true)
+        q = queue_wrap(); before = (copy(q.a), q.dau, q.so, q.n)
+        @test_throws ArgumentError xem_k(q, k)
+        @test (q.a, q.dau, q.so, q.n) == before
+    end
+    @test xem_k(HangDoiVong(4), 0) == Int[]
+    @test_throws ArgumentError xem_k(HangDoiVong(4), 1)
+end
+@testset &quot;200 dãy đối chiếu, seed cố định&quot; begin
+    rng = MersenneTwister(20260917)
+    for _ in 1:200
+        a = rand(rng, -3:3, rand(rng, 0:29)); x = rand(rng, -3:3)
+        L = DSLK(a)
+        @test dem_gia_tri(L, x) == count(==(x), a)
+        @test xoa_tat_ca!(L, x) == count(==(x), a)
+        @test gia_tri(L) == filter(!=(x), a)
+    end
+end
+</code></pre></details><details id="code-12"><summary>julia/test_co_ban.jl · 120 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>using Test, Random
+include(&quot;CauTruc.jl&quot;)
+using .CauTruc
+
+@testset &quot;Danh sách liên kết&quot; begin
+    L = DSLK()
+    @test gia_tri(L) == Int[]
+    @test tim(L, 1) === nothing
+    @test !xoa!(L, 1)
+    them_cuoi!(L, 20); them_dau!(L, 10); them_cuoi!(L, 30)
+    @test gia_tri(L) == [10, 20, 30]
+    p = tim(L, 20); old = p.ke
+    m = chen_sau!(L, p, 25)
+    @test m.ke === old
+    @test gia_tri(L) == [10, 20, 25, 30]
+    @test xoa!(L, 10)
+    @test xoa!(L, 30)
+    @test gia_tri(L) == [20, 25]
+    @test !xoa!(L, 99)
+    head = L.dau; tail = head.ke
+    dao!(L)
+    @test L.dau === tail
+    @test tail.ke === head
+    @test gia_tri(L) == [25, 20]
+    for values in [Int[], [1]]
+        K = DSLK(values); dao!(K)
+        @test gia_tri(K) == values
+    end
+    K = DSLK([2, 2, 3]); xoa!(K, 2)
+    @test gia_tri(K) == [2, 3]
+    K = DSLK([1]); K.dau.ke = K.dau
+    @test_throws ArgumentError gia_tri(K)
+    K = DSLK([1]); K.n = 9
+    @test_throws ArgumentError gia_tri(K)
+end
+
+@testset &quot;Ngăn xếp&quot; begin
+    s = NganXep()
+    @test rong(s)
+    @test lay!(s) === nothing
+    @test dinh(s) === nothing
+    for x in [10, 20, 30]; day!(s, x); end
+    @test dinh(s) == 30
+    @test s.a == [10, 20, 30]
+    @test [lay!(s), lay!(s), lay!(s)] == [30, 20, 10]
+end
+
+@testset &quot;Hàng đợi vòng&quot; begin
+    @test_throws ArgumentError HangDoiVong(0)
+    @test_throws ArgumentError HangDoiVong(-1)
+    q = HangDoiVong(4)
+    @test rong(q)
+    @test lay!(q) === nothing
+    @test gia_tri(q) == Int[]
+    for x in 1:4; @test them!(q, x); end
+    before = (copy(q.a), q.dau, q.so)
+    @test !them!(q, 5)
+    @test (q.a, q.dau, q.so) == before
+    @test lay!(q) == 1
+    @test q.a == [1, 2, 3, 4]
+    @test gia_tri(q) == [2, 3, 4]
+    @test them!(q, 5)
+    @test q.a == [5, 2, 3, 4]
+    @test gia_tri(q) == [2, 3, 4, 5]
+    q = HangDoiVong(1)
+    @test them!(q, 0)
+    @test !them!(q, 1)
+    @test lay!(q) == 0
+    @test them!(q, 2)
+end
+
+@testset &quot;Ngoặc và kiểu đầu vào&quot; begin
+    for text in [&quot;&quot;, &quot;a+b&quot;, &quot;(a+[b*c])-{d/e}&quot;, &quot;((()))&quot;]
+        @test can_ngoac_chi_tiet(text)[&quot;valid&quot;]
+    end
+    for text in [&quot;)(&quot;, &quot;([)]&quot;, &quot;(()&quot;, &quot;(a+[b)*c]&quot;]
+        @test !can_ngoac_chi_tiet(text)[&quot;valid&quot;]
+    end
+    @test can_ngoac_chi_tiet(&quot;á[)]&quot;)[&quot;trace&quot;][end][&quot;pos&quot;] == 3
+    for x in [true, 2.5, &quot;2&quot;, nothing, 1000001]
+        @test_throws ArgumentError so_nguyen(x)
+    end
+end
+
+@testset &quot;Đối chiếu 1000 thao tác danh sách, seed cố định&quot; begin
+    rng = MersenneTwister(20260917)
+    L = DSLK(); ref = Int[]
+    for _ in 1:1000
+        x = rand(rng, -10:10); op = rand(rng, 0:3)
+        if op == 0
+            them_dau!(L, x); pushfirst!(ref, x)
+        elseif op == 1
+            them_cuoi!(L, x); push!(ref, x)
+        elseif op == 2
+            idx = findfirst(==(x), ref)
+            @test xoa!(L, x) == (idx !== nothing)
+            if idx !== nothing; deleteat!(ref, idx); end
+        else
+            dao!(L); reverse!(ref)
+        end
+        @test gia_tri(L) == ref
+    end
+end
+
+@testset &quot;Đối chiếu 1000 thao tác hàng đợi, seed cố định&quot; begin
+    rng = MersenneTwister(20260917)
+    q = HangDoiVong(7); ref = Int[]
+    for _ in 1:1000
+        if rand(rng) &lt; 0.6
+            x = rand(rng, -10:10); allowed = length(ref) &lt; 7
+            @test them!(q, x) == allowed
+            if allowed; push!(ref, x); end
+        else
+            expected = isempty(ref) ? nothing : popfirst!(ref)
+            @test lay!(q) === expected
+        end
+        @test gia_tri(q) == ref
+    end
+end
+println(&quot;Đã kết thúc kiểm thử cơ bản. Xem kết quả Test Summary ở trên.&quot;)
+</code></pre></details><details id="code-13"><summary>web/app.js · 160 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&quot;use strict&quot;;
+// Giao diện chỉ gửi lệnh và vẽ bản sao trạng thái nhận từ Python/Julia.
+// Không cài thuật toán danh sách, ngăn xếp hoặc hàng đợi trong JavaScript.
+const $ = (id) =&gt; document.getElementById(id);
+const titles = {
+  list: [&quot;Danh sách liên kết đơn&quot;, &quot;Dữ liệu nằm trong các nút; thứ tự được quyết định bởi liên kết ke.&quot;],
+  stack: [&quot;Ngăn xếp&quot;, &quot;Đưa vào và lấy ra tại đỉnh. Phần tử vào sau cùng được lấy trước.&quot;],
+  queue: [&quot;Hàng đợi vòng&quot;, &quot;Thêm cuối, lấy đầu. Phần tử vào trước được lấy trước; ô mảng được sử dụng lại theo vòng.&quot;],
+  brackets: [&quot;Kiểm tra dấu ngoặc&quot;, &quot;Ngoặc đóng phải khớp với ngoặc mở gần nhất chưa đóng. Theo dõi từng ký tự bằng ngăn xếp.&quot;]
+};
+let tab = &quot;list&quot;, state = null, token = &quot;&quot;, busy = false, total = 0;
+let history = [], trace = [], traceIndex = -1, timer = null;
+let lastBefore = null, lastAfter = null;
+const outcomes = {};
+function node(tag, text, cls) {
+  const e = document.createElement(tag);
+  if (text !== undefined &amp;&amp; text !== null) e.textContent = String(text);
+  if (cls) e.className = cls;
+  return e;
+}
+function format(x) {
+  if (x === null || x === undefined) return &quot;Không có giá trị (None / nothing)&quot;;
+  if (typeof x === &quot;boolean&quot;) return x ? &quot;Đúng (true)&quot; : &quot;Sai (false)&quot;;
+  return typeof x === &quot;object&quot; ? JSON.stringify(x) : String(x);
+}
+function inputInt(id) {
+  const value = $(id).value.trim();
+  if (!/^[+-]?\d+$/.test(value)) throw new Error(&quot;Cần nhập số nguyên, không dùng số thập phân.&quot;);
+  const x = Number(value);
+  if (!Number.isSafeInteger(x) || Math.abs(x) &gt; 1000000) throw new Error(&quot;Số nguyên phải nằm trong [-1000000, 1000000].&quot;);
+  return x;
+}
+function describe(s, kind=tab) {
+  if (!s) return &quot;Chưa thực hiện thao tác.&quot;;
+  if (kind === &quot;list&quot;) return &quot;dau → &quot; + (s.list.values.join(&quot; → &quot;) || &quot;&quot;) + (s.list.n ? &quot; → &quot; : &quot;&quot;) + &quot;rỗng\nn = &quot; + s.list.n;
+  if (kind === &quot;stack&quot;) return &quot;Đáy → đỉnh: &quot; + JSON.stringify(s.stack.values) + &quot;\nSố phần tử = &quot; + s.stack.n + &quot;\nĐỉnh = &quot; + format(s.stack.top);
+  if (kind === &quot;queue&quot;) return &quot;Đầu → cuối: &quot; + JSON.stringify(s.queue.values) + &quot;\nMảng vật lý: &quot; + JSON.stringify(s.queue.a) + &quot;\ndau = &quot; + s.queue.dau + &quot;; so = &quot; + s.queue.so + &quot;; n = &quot; + s.queue.n;
+  return &quot;Kiểm tra ngoặc sử dụng ngăn xếp cục bộ riêng; không thay đổi ba cấu trúc trong các thẻ khác.&quot;;
+}
+function stopTrace(){ if(timer){clearInterval(timer);timer=null;} $(&quot;trace-play&quot;).textContent=&quot;Tự chạy&quot;; }
+function switchTab(kind) {
+  stopTrace(); tab = kind;
+  for(const key of Object.keys(titles)) $(&quot;panel-&quot;+key).hidden = key !== kind;
+  document.querySelectorAll(&quot;[data-tab]&quot;).forEach(b =&gt; b.setAttribute(&quot;aria-pressed&quot;, String(b.dataset.tab === kind)));
+  $(&quot;title&quot;).textContent=titles[kind][0]; $(&quot;intro&quot;).textContent=titles[kind][1];
+  $(&quot;trace-card&quot;).hidden = kind !== &quot;brackets&quot; || !trace.length;
+  showOutcome();
+  render();
+}
+function showOutcome() {
+  const a = outcomes[tab];
+  lastBefore = a?.before || null; lastAfter = a?.state || null;
+  feedback(a?.message || &quot;Chọn một thao tác để bắt đầu.&quot;, !!a?.error);
+  $(&quot;result&quot;).textContent = a ? (a.error ? &quot;Thao tác không hoàn tất.&quot; : &quot;Trả về: &quot; + format(a.result)) : &quot;Chưa có giá trị trả về.&quot;;
+  $(&quot;steps&quot;).replaceChildren(...(a?.steps || [&quot;Quan sát cấu trúc dữ liệu trước khi thực hiện.&quot;, &quot;Giải thích vì sao kết quả thay đổi hoặc không thay đổi.&quot;]).map(t=&gt;node(&quot;li&quot;,t)));
+  $(&quot;before&quot;).textContent=describe(lastBefore); $(&quot;after&quot;).textContent=describe(lastAfter);
+}
+function render() {
+  if (!state) return;
+  $(&quot;language&quot;).textContent=&quot;Thuật toán: &quot; + state.language;
+  $(&quot;edition&quot;).textContent=&quot;Bản &quot; + state.edition.toLowerCase();
+  $(&quot;edition-note&quot;).textContent=state.edition === &quot;Sinh viên&quot; ? &quot;Các thao tác cơ bản đã có mã. Bốn chức năng bài tập sẽ hoạt động sau khi hoàn thành tệp bài làm.&quot; : &quot;Bản đáp án đã cài đặt cả bốn chức năng bài tập.&quot;;
+  const v=$(&quot;visual&quot;);v.replaceChildren();$(&quot;queue-info&quot;).hidden=tab!==&quot;queue&quot;;
+  if(tab===&quot;list&quot;){
+    $(&quot;count&quot;).textContent=&quot;n = &quot;+state.list.n;
+    if(!state.list.n) v.append(node(&quot;div&quot;,&quot;dau = rỗng. Danh sách chưa có nút.&quot;,&quot;empty&quot;));
+    else {
+      const line=node(&quot;div&quot;,null,&quot;chain&quot;);
+      state.list.values.forEach((x,i)=&gt;{const n=node(&quot;div&quot;,null,&quot;node&quot;);n.append(node(&quot;strong&quot;,x),node(&quot;span&quot;,&quot;ke&quot;,&quot;link-field&quot;));n.append(node(&quot;span&quot;,i===0?&quot;dau / vị trí 1&quot;:&quot;vị trí &quot;+(i+1),&quot;node-label&quot;));line.append(n,node(&quot;span&quot;,&quot;→&quot;,&quot;edge&quot;));});
+      line.append(node(&quot;span&quot;,&quot;None / nothing&quot;,&quot;terminal&quot;));v.append(line);
+    }
+    $(&quot;visual-note&quot;).textContent=&quot;Sơ đồ thứ tự logic, không phải địa chỉ RAM. Các nút có giá trị giống nhau vẫn là các đối tượng khác nhau.&quot;;
+  }else if(tab===&quot;stack&quot;){
+    $(&quot;count&quot;).textContent=state.stack.n+&quot; phần tử&quot;;
+    if(!state.stack.n) v.append(node(&quot;div&quot;,&quot;Ngăn xếp rỗng. Lấy hoặc xem đỉnh trả về None / nothing.&quot;,&quot;empty&quot;));
+    else {const tower=node(&quot;div&quot;,null,&quot;stack-tower&quot;);[...state.stack.values].reverse().forEach((x,i)=&gt;{const item=node(&quot;div&quot;,x,&quot;stack-item&quot;+(i===0?&quot; top&quot;:&quot;&quot;));if(i===0)item.append(node(&quot;span&quot;,&quot;ĐỈNH&quot;));tower.append(item);});v.append(tower);}
+    $(&quot;visual-note&quot;).textContent=&quot;Hình vẽ đặt đỉnh ở trên. Mảng lưu từ đáy tới đỉnh: &quot;+JSON.stringify(state.stack.values)+&quot;.&quot;;
+  }else if(tab===&quot;queue&quot;){
+    const q=state.queue;$(&quot;count&quot;).textContent=q.so+&quot; / &quot;+q.n+&quot; phần tử&quot;;
+    const physical=node(&quot;div&quot;,null,&quot;physical&quot;);
+    q.a.forEach((x,i)=&gt;{const active=q.active.includes(i), front=active&amp;&amp;i===q.dau;const c=node(&quot;div&quot;,null,&quot;cell&quot;+(active?&quot; active&quot;:&quot;&quot;)+(front?&quot; front&quot;:&quot;&quot;));c.append(node(&quot;em&quot;,front?&quot;ĐẦU&quot;:active?&quot;HỢP LỆ&quot;:&quot;NGOÀI HÀNG&quot;),node(&quot;span&quot;,x===null?&quot;∅&quot;:x),node(&quot;small&quot;,&quot;ô logic &quot;+i));physical.append(c);});v.append(physical,node(&quot;div&quot;,&quot;Đầu → cuối: &quot;+(q.values.length?q.values.join(&quot; → &quot;):&quot;rỗng&quot;),&quot;logical&quot;));
+    const metrics=node(&quot;div&quot;,null,&quot;metrics&quot;);[&quot;dau = &quot;+q.dau,&quot;so = &quot;+q.so,&quot;n = &quot;+q.n].forEach(x=&gt;metrics.append(node(&quot;span&quot;,x)));v.append(metrics);
+    $(&quot;queue-info&quot;).textContent=state.language===&quot;Julia&quot; ? &quot;Julia: ô logic i được đọc/ghi bằng a[i + 1]. Ví dụ ô logic &quot;+q.dau+&quot; tương ứng a[&quot;+(q.dau+1)+&quot;].&quot; : &quot;Python: ô logic i được đọc/ghi bằng a[i]. Ví dụ đầu hàng ở a[&quot;+q.dau+&quot;].&quot;;
+    $(&quot;visual-note&quot;).textContent=&quot;Ô ghi NGOÀI HÀNG không thuộc dữ liệu hợp lệ, kể cả khi còn số cũ. ∅ là ô chưa từng ghi. Thứ tự trong mảng vật lý có thể khác FIFO.&quot;;
+  }else{
+    $(&quot;count&quot;).textContent=trace.length?trace.length+&quot; bước&quot;:&quot;Chưa kiểm tra&quot;;
+    if(traceIndex&gt;=0 &amp;&amp; trace[traceIndex]){
+      const f=trace[traceIndex];v.append(node(&quot;div&quot;,&quot;Ký tự đang xét: &quot;+(f.char||&quot;Cuối chuỗi&quot;),&quot;logical&quot;));
+      const t=node(&quot;div&quot;,null,&quot;stack-tower&quot;);
+      if(!f.stack.length)t.append(node(&quot;div&quot;,&quot;Rỗng&quot;,&quot;empty&quot;));
+      else [...f.stack].reverse().forEach((x,i)=&gt;{const item=node(&quot;div&quot;,x,&quot;stack-item&quot;+(i===0?&quot; top&quot;:&quot;&quot;));if(!i)item.append(node(&quot;span&quot;,&quot;ĐỈNH&quot;));t.append(item);});
+      v.append(t);
+    }else v.append(node(&quot;div&quot;,&quot;Bấm Kiểm tra ngoặc để tạo lần vết.&quot;,&quot;empty&quot;));
+    $(&quot;visual-note&quot;).textContent=&quot;Đây là ngăn xếp riêng cho dấu ngoặc, không dùng dữ liệu trong thẻ Ngăn xếp. Vị trí đếm từ 1 theo ký tự.&quot;;
+  }
+}
+function feedback(msg,error=false){$(&quot;feedback&quot;).textContent=msg;$(&quot;feedback&quot;).classList.toggle(&quot;error&quot;,error);}
+async function connect(){
+  try{
+    const r=await fetch(&quot;/api/state&quot;,{cache:&quot;no-store&quot;});const d=await r.json();
+    if(!r.ok||!d.ok)throw new Error(d.message||&quot;Không nhận được trạng thái.&quot;);
+    state=d.state;token=d.token;$(&quot;connection&quot;).hidden=true;render();
+  }catch(e){$(&quot;connection&quot;).hidden=false;$(&quot;connection&quot;).textContent=&quot;Chưa kết nối được máy chủ. Chạy app.py hoặc app.jl, rồi mở địa chỉ http://127.0.0.1 được in trong terminal. Không mở index.html trực tiếp. &quot;+e.message;}
+}
+function dataFor(op){
+  const d={op};
+  if([&quot;list.prepend&quot;,&quot;list.append&quot;,&quot;list.find&quot;,&quot;list.insert&quot;,&quot;list.delete&quot;,&quot;list.count&quot;,&quot;list.delete_all&quot;].includes(op))d.x=inputInt(&quot;list-x&quot;);
+  if(op===&quot;list.insert&quot;)d.target=inputInt(&quot;list-target&quot;);
+  if(op===&quot;stack.push&quot;)d.x=inputInt(&quot;stack-x&quot;);
+  if(op===&quot;queue.enqueue&quot;)d.x=inputInt(&quot;queue-x&quot;);
+  if(op===&quot;stack.pop_many&quot;)d.k=inputInt(&quot;stack-k&quot;);
+  if(op===&quot;queue.peek_k&quot;)d.k=inputInt(&quot;queue-k&quot;);
+  if(op===&quot;brackets.check&quot;)d.text=$(&quot;brackets-text&quot;).value;
+  return d;
+}
+async function act(d){
+  if(busy)return;stopTrace();busy=true;
+  const actionTab = d.op === &quot;all.reset&quot; ? tab : d.op.split(&quot;.&quot;)[0];
+  const buttons=[...document.querySelectorAll(&quot;.workspace button&quot;)];buttons.forEach(b=&gt;b.disabled=true);
+  try{
+    if(!token)throw new Error(&quot;Chưa kết nối với máy chủ; bấm Đọc lại trạng thái.&quot;);
+    const r=await fetch(&quot;/api/action&quot;,{method:&quot;POST&quot;,headers:{&quot;Content-Type&quot;:&quot;application/json&quot;,&quot;X-Lab-Token&quot;:token},body:JSON.stringify(d)});
+    const a=await r.json();
+    if(!r.ok||!a.ok)throw new Error(a.message||&quot;Thao tác không thành công.&quot;);
+    state=a.state;
+    if(d.op === &quot;all.reset&quot;) {for(const key of Object.keys(outcomes)) delete outcomes[key];trace=[];traceIndex=-1;}
+    outcomes[actionTab]=a;showOutcome();
+    total++;history.push({number:total,request:d,result:a.result,message:a.message,before:a.before,state:a.state});if(history.length&gt;200)history.shift();
+    renderHistory();
+    if(d.op===&quot;brackets.check&quot;){trace=a.trace;traceIndex=0;renderTrace();}
+    render();
+  }catch(e){outcomes[actionTab]={error:true,message:e.message,steps:[&quot;Kiểm tra dữ liệu nhập hoặc hàm trong tệp bài làm.&quot;]};showOutcome();}
+  finally{busy=false;buttons.forEach(b=&gt;b.disabled=false);if(tab === &quot;brackets&quot;) renderTrace();}
+}
+function renderHistory(){
+  $(&quot;history-count&quot;).textContent=total+&quot; thao tác&quot;;
+  $(&quot;history&quot;).replaceChildren(...[...history].reverse().map(x=&gt;{const r=node(&quot;tr&quot;);r.append(node(&quot;td&quot;,x.number),node(&quot;td&quot;,x.request.op),node(&quot;td&quot;,x.message));return r;}));
+}
+function renderTrace(){
+  $(&quot;trace-card&quot;).hidden=tab!==&quot;brackets&quot;||!trace.length;
+  $(&quot;trace-counter&quot;).textContent=trace.length?&quot;Bước &quot;+(traceIndex+1)+&quot; / &quot;+trace.length:&quot;&quot;;
+  $(&quot;trace-prev&quot;).disabled=traceIndex&lt;=0;$(&quot;trace-next&quot;).disabled=traceIndex&gt;=trace.length-1;
+  $(&quot;trace-note&quot;).textContent=trace[traceIndex]?.note||&quot;&quot;;
+  $(&quot;trace-body&quot;).replaceChildren(...trace.map((x,i)=&gt;{const r=node(&quot;tr&quot;,null,(i===traceIndex?&quot;trace-active &quot;:&quot;&quot;)+(!x.ok?&quot;trace-error&quot;:&quot;&quot;));r.append(node(&quot;td&quot;,x.char?x.pos:&quot;Kết thúc&quot;),node(&quot;td&quot;,x.char||&quot;∅&quot;),node(&quot;td&quot;,JSON.stringify(x.stack)),node(&quot;td&quot;,x.note));return r;}));render();
+}
+function safe(f){return ()=&gt;{try{f();}catch(e){feedback(e.message,true);}};}
+document.querySelectorAll(&quot;[data-tab]&quot;).forEach(b=&gt;b.addEventListener(&quot;click&quot;,()=&gt;switchTab(b.dataset.tab)));
+document.querySelectorAll(&quot;[data-op]&quot;).forEach(b=&gt;b.addEventListener(&quot;click&quot;,safe(()=&gt;act(dataFor(b.dataset.op)))));
+document.querySelectorAll(&quot;[data-example]&quot;).forEach(b=&gt;b.addEventListener(&quot;click&quot;,()=&gt;{$(&quot;brackets-text&quot;).value=b.dataset.example;act(dataFor(&quot;brackets.check&quot;));}));
+$(&quot;list-reset&quot;).onclick=safe(()=&gt;{const raw=$(&quot;list-values&quot;).value.trim();const parts=raw?raw.split(&quot;,&quot;).map(x=&gt;x.trim()):[];if(parts.some(x=&gt;!/^[+-]?\d+$/.test(x)))throw new Error(&quot;Nhập các số nguyên cách nhau bởi dấu phẩy; không để phần tử trống.&quot;);act({op:&quot;list.reset&quot;,values:parts.map(Number)});});
+$(&quot;list-empty&quot;).onclick=()=&gt;act({op:&quot;list.reset&quot;,values:[]});
+$(&quot;queue-reset&quot;).onclick=safe(()=&gt;act({op:&quot;queue.reset&quot;,capacity:inputInt(&quot;queue-capacity&quot;)}));
+$(&quot;reset-all&quot;).onclick=()=&gt;{if(confirm(&quot;Khôi phục dữ liệu mẫu cho cả ba cấu trúc?&quot;))act({op:&quot;all.reset&quot;});};
+$(&quot;refresh&quot;).onclick=connect;
+$(&quot;export&quot;).onclick=()=&gt;{const data={language:state?.language||&quot;&quot;,edition:state?.edition||&quot;&quot;,notice:&quot;Nhật ký là dữ liệu thao tác, không phải chứng minh tác giả hoặc điểm số.&quot;,history};const blob=new Blob([JSON.stringify(data,null,2)],{type:&quot;application/json&quot;});const url=URL.createObjectURL(blob);const a=node(&quot;a&quot;);a.href=url;a.download=&quot;nhat_ky_chuong5.json&quot;;document.body.append(a);a.click();a.remove();setTimeout(()=&gt;URL.revokeObjectURL(url),1000);};
+$(&quot;trace-prev&quot;).onclick=()=&gt;{stopTrace();if(traceIndex&gt;0)traceIndex--;renderTrace();};
+$(&quot;trace-next&quot;).onclick=()=&gt;{stopTrace();if(traceIndex&lt;trace.length-1)traceIndex++;renderTrace();};
+$(&quot;trace-first&quot;).onclick=()=&gt;{stopTrace();traceIndex=0;renderTrace();};
+$(&quot;trace-play&quot;).onclick=()=&gt;{if(timer){stopTrace();return;}if(traceIndex&gt;=trace.length-1)traceIndex=0;$(&quot;trace-play&quot;).textContent=&quot;Dừng&quot;;timer=setInterval(()=&gt;{if(traceIndex&lt;trace.length-1){traceIndex++;renderTrace();}else stopTrace();},1200);};
+connect();
+</code></pre></details><details id="code-14"><summary>web/index.html · 44 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Chương 5 · Thực hành cấu trúc dữ liệu&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;&lt;script src=&quot;/app.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;a class=&quot;skip&quot; href=&quot;#main&quot;&gt;Đi tới nội dung&lt;/a&gt;
+&lt;header&gt;&lt;div class=&quot;brand&quot;&gt;&lt;span class=&quot;chapter&quot;&gt;05&lt;/span&gt;&lt;div&gt;&lt;strong&gt;Cấu trúc dữ liệu&lt;/strong&gt;&lt;small&gt;Danh sách liên kết · Ngăn xếp · Hàng đợi&lt;/small&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;badges&quot;&gt;&lt;span id=&quot;language&quot;&gt;Đang kết nối&lt;/span&gt;&lt;span id=&quot;edition&quot;&gt;Bài thực hành&lt;/span&gt;&lt;button id=&quot;refresh&quot;&gt;Đọc lại trạng thái&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;
+&lt;div class=&quot;layout&quot;&gt;
+&lt;aside&gt;&lt;div class=&quot;overline&quot;&gt;THỰC HÀNH&lt;/div&gt;&lt;nav aria-label=&quot;Chọn cấu trúc&quot;&gt;
+&lt;button data-tab=&quot;list&quot; aria-pressed=&quot;true&quot;&gt;01 &lt;span&gt;Danh sách liên kết&lt;/span&gt;&lt;/button&gt;
+&lt;button data-tab=&quot;stack&quot; aria-pressed=&quot;false&quot;&gt;02 &lt;span&gt;Ngăn xếp&lt;/span&gt;&lt;/button&gt;
+&lt;button data-tab=&quot;queue&quot; aria-pressed=&quot;false&quot;&gt;03 &lt;span&gt;Hàng đợi vòng&lt;/span&gt;&lt;/button&gt;
+&lt;button data-tab=&quot;brackets&quot; aria-pressed=&quot;false&quot;&gt;04 &lt;span&gt;Kiểm tra ngoặc&lt;/span&gt;&lt;/button&gt;&lt;/nav&gt;
+&lt;div class=&quot;aside-note&quot;&gt;&lt;strong&gt;Cách thực hành&lt;/strong&gt;&lt;p&gt;Nhập dữ liệu, dự đoán kết quả, rồi bấm thao tác. So sánh trạng thái trước và sau.&lt;/p&gt;&lt;p&gt;Thuật toán chạy trong Python hoặc Julia. Trình duyệt chỉ gửi lệnh và hiển thị kết quả.&lt;/p&gt;&lt;/div&gt;
+&lt;div class=&quot;aside-note&quot;&gt;&lt;strong&gt;Bài tập 7 ngày&lt;/strong&gt;&lt;p&gt;Bốn nút có nhãn &lt;b&gt;Bài tập&lt;/b&gt; gọi trực tiếp các hàm trong &lt;code&gt;bai_lam.py&lt;/code&gt; hoặc &lt;code&gt;BaiLam.jl&lt;/code&gt;.&lt;/p&gt;&lt;p id=&quot;edition-note&quot;&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;button id=&quot;export&quot;&gt;Xuất nhật ký JSON&lt;/button&gt;&lt;button id=&quot;reset-all&quot; class=&quot;subtle&quot;&gt;Khôi phục dữ liệu mẫu&lt;/button&gt;
+&lt;small class=&quot;aside-foot&quot;&gt;Mỗi máy chủ dùng một bộ dữ liệu chung cho các tab đang mở. Dừng chương trình sẽ mất trạng thái.&lt;/small&gt;&lt;/aside&gt;
+&lt;main id=&quot;main&quot;&gt;
+&lt;div id=&quot;connection&quot; role=&quot;alert&quot; hidden&gt;&lt;/div&gt;
+&lt;div class=&quot;heading&quot;&gt;&lt;div class=&quot;overline&quot;&gt;CHƯƠNG 5 / PHÒNG THỰC HÀNH&lt;/div&gt;&lt;h1 id=&quot;title&quot;&gt;Danh sách liên kết đơn&lt;/h1&gt;&lt;p id=&quot;intro&quot;&gt;Dữ liệu nằm trong các nút; thứ tự được quyết định bởi liên kết ke.&lt;/p&gt;&lt;/div&gt;
+&lt;section class=&quot;workspace&quot; id=&quot;panel-list&quot; aria-label=&quot;Thao tác danh sách&quot;&gt;
+&lt;div class=&quot;config&quot;&gt;&lt;label class=&quot;grow&quot;&gt;Dãy ban đầu, ngăn cách bằng dấu phẩy&lt;input id=&quot;list-values&quot; value=&quot;10, 20, 30&quot; placeholder=&quot;Ví dụ: 10, 20, 20, 30&quot;&gt;&lt;/label&gt;&lt;button id=&quot;list-reset&quot;&gt;Tạo danh sách&lt;/button&gt;&lt;button id=&quot;list-empty&quot;&gt;Danh sách rỗng&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;controls&quot;&gt;&lt;label&gt;Giá trị x&lt;input id=&quot;list-x&quot; type=&quot;number&quot; value=&quot;25&quot; step=&quot;1&quot; min=&quot;-1000000&quot; max=&quot;1000000&quot;&gt;&lt;/label&gt;&lt;button data-op=&quot;list.prepend&quot;&gt;Thêm đầu&lt;/button&gt;&lt;button data-op=&quot;list.append&quot;&gt;Thêm cuối&lt;/button&gt;&lt;button data-op=&quot;list.find&quot;&gt;Tìm x&lt;/button&gt;&lt;button data-op=&quot;list.delete&quot;&gt;Xoá một x&lt;/button&gt;&lt;button data-op=&quot;list.reverse&quot;&gt;Đảo danh sách&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;controls secondary&quot;&gt;&lt;label&gt;Chèn sau giá trị&lt;input id=&quot;list-target&quot; type=&quot;number&quot; value=&quot;20&quot; step=&quot;1&quot;&gt;&lt;/label&gt;&lt;button data-op=&quot;list.insert&quot;&gt;Chèn x sau nút&lt;/button&gt;&lt;span class=&quot;help&quot;&gt;Nếu có giá trị trùng, chọn nút xuất hiện đầu tiên.&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;controls homework&quot;&gt;&lt;span class=&quot;tag&quot;&gt;Bài tập&lt;/span&gt;&lt;button data-op=&quot;list.count&quot;&gt;Đếm x&lt;/button&gt;&lt;button data-op=&quot;list.delete_all&quot;&gt;Xoá tất cả x&lt;/button&gt;&lt;small&gt;Thực hiện trong tệp bài làm, không sửa JavaScript để giả kết quả.&lt;/small&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;workspace&quot; id=&quot;panel-stack&quot; hidden aria-label=&quot;Thao tác ngăn xếp&quot;&gt;
+&lt;div class=&quot;controls&quot;&gt;&lt;label&gt;Giá trị x&lt;input id=&quot;stack-x&quot; type=&quot;number&quot; value=&quot;10&quot; step=&quot;1&quot;&gt;&lt;/label&gt;&lt;button data-op=&quot;stack.push&quot;&gt;Đẩy vào đỉnh&lt;/button&gt;&lt;button data-op=&quot;stack.pop&quot;&gt;Lấy đỉnh&lt;/button&gt;&lt;button data-op=&quot;stack.peek&quot;&gt;Xem đỉnh&lt;/button&gt;&lt;button data-op=&quot;stack.empty&quot;&gt;Kiểm tra rỗng&lt;/button&gt;&lt;button data-op=&quot;stack.reset&quot; class=&quot;subtle&quot;&gt;Làm rỗng&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;controls homework&quot;&gt;&lt;span class=&quot;tag&quot;&gt;Bài tập&lt;/span&gt;&lt;label&gt;Số lượng k&lt;input id=&quot;stack-k&quot; type=&quot;number&quot; value=&quot;2&quot; step=&quot;1&quot;&gt;&lt;/label&gt;&lt;button data-op=&quot;stack.pop_many&quot;&gt;Lấy k phần tử&lt;/button&gt;&lt;small&gt;k không hợp lệ: báo lỗi và giữ nguyên ngăn xếp.&lt;/small&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;workspace&quot; id=&quot;panel-queue&quot; hidden aria-label=&quot;Thao tác hàng đợi&quot;&gt;
+&lt;div class=&quot;config&quot;&gt;&lt;label&gt;Sức chứa n&lt;input id=&quot;queue-capacity&quot; type=&quot;number&quot; value=&quot;5&quot; min=&quot;1&quot; max=&quot;12&quot; step=&quot;1&quot;&gt;&lt;/label&gt;&lt;button id=&quot;queue-reset&quot;&gt;Tạo hàng đợi rỗng&lt;/button&gt;&lt;small&gt;Thay sức chứa sẽ xoá dữ liệu hàng đợi hiện tại.&lt;/small&gt;&lt;/div&gt;
+&lt;div class=&quot;controls&quot;&gt;&lt;label&gt;Giá trị x&lt;input id=&quot;queue-x&quot; type=&quot;number&quot; value=&quot;10&quot; step=&quot;1&quot;&gt;&lt;/label&gt;&lt;button data-op=&quot;queue.enqueue&quot;&gt;Thêm cuối hàng&lt;/button&gt;&lt;button data-op=&quot;queue.dequeue&quot;&gt;Lấy đầu hàng&lt;/button&gt;&lt;button data-op=&quot;queue.peek&quot;&gt;Xem đầu hàng&lt;/button&gt;&lt;button data-op=&quot;queue.empty&quot;&gt;Kiểm tra rỗng&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;controls homework&quot;&gt;&lt;span class=&quot;tag&quot;&gt;Bài tập&lt;/span&gt;&lt;label&gt;Số lượng k&lt;input id=&quot;queue-k&quot; type=&quot;number&quot; value=&quot;2&quot; step=&quot;1&quot;&gt;&lt;/label&gt;&lt;button data-op=&quot;queue.peek_k&quot;&gt;Xem k phần tử đầu&lt;/button&gt;&lt;small&gt;Chỉ đọc theo FIFO; không sửa mảng, dau hoặc so.&lt;/small&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;workspace&quot; id=&quot;panel-brackets&quot; hidden aria-label=&quot;Kiểm tra dấu ngoặc&quot;&gt;
+&lt;div class=&quot;config&quot;&gt;&lt;label class=&quot;grow&quot;&gt;Chuỗi cần kiểm tra, tối đa 200 ký tự&lt;input id=&quot;brackets-text&quot; maxlength=&quot;200&quot; value=&quot;(a+[b*c])-{d/e}&quot;&gt;&lt;/label&gt;&lt;button data-op=&quot;brackets.check&quot;&gt;Kiểm tra ngoặc&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;controls&quot;&gt;&lt;button data-example=&quot;(a+[b*c])-{d/e}&quot;&gt;Ví dụ đúng&lt;/button&gt;&lt;button data-example=&quot;([)]&quot;&gt;Sai thứ tự&lt;/button&gt;&lt;button data-example=&quot;(()&quot;&gt;Thiếu ngoặc đóng&lt;/button&gt;&lt;button data-example=&quot;)(&quot;&gt;Đóng trước mở&lt;/button&gt;&lt;/div&gt;
+&lt;p class=&quot;panel-note&quot;&gt;Chỉ kiểm tra (), [], {}. Bỏ qua ký tự khác; không đánh giá cú pháp hay giá trị biểu thức.&lt;/p&gt;&lt;/section&gt;
+&lt;div class=&quot;workgrid&quot;&gt;&lt;section class=&quot;card visualization&quot;&gt;&lt;div class=&quot;card-head&quot;&gt;&lt;h2&gt;Trạng thái hiện tại&lt;/h2&gt;&lt;span id=&quot;count&quot; class=&quot;stat&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div id=&quot;visual&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;&lt;p id=&quot;visual-note&quot; class=&quot;muted&quot;&gt;&lt;/p&gt;&lt;div id=&quot;queue-info&quot; hidden&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;card explanation&quot;&gt;&lt;div class=&quot;card-head&quot;&gt;&lt;h2&gt;Kết quả và giải thích&lt;/h2&gt;&lt;/div&gt;&lt;div id=&quot;feedback&quot; role=&quot;status&quot;&gt;Chọn một thao tác để bắt đầu.&lt;/div&gt;&lt;div id=&quot;result&quot; class=&quot;result&quot;&gt;Chưa có giá trị trả về.&lt;/div&gt;&lt;ol id=&quot;steps&quot;&gt;&lt;li&gt;Quan sát cấu trúc dữ liệu trước khi thực hiện.&lt;/li&gt;&lt;li&gt;Giải thích vì sao kết quả thay đổi hoặc không thay đổi.&lt;/li&gt;&lt;/ol&gt;&lt;p class=&quot;muted&quot;&gt;Đây là diễn giải của thao tác, không phải phép đo thời gian thực thi.&lt;/p&gt;&lt;/section&gt;&lt;/div&gt;
+&lt;section class=&quot;card&quot; id=&quot;trace-card&quot; hidden&gt;&lt;div class=&quot;card-head&quot;&gt;&lt;h2&gt;Lần vết kiểm tra ngoặc&lt;/h2&gt;&lt;span id=&quot;trace-counter&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;trace-controls&quot;&gt;&lt;button id=&quot;trace-prev&quot;&gt;Bước trước&lt;/button&gt;&lt;button id=&quot;trace-next&quot;&gt;Bước tiếp&lt;/button&gt;&lt;button id=&quot;trace-play&quot;&gt;Tự chạy&lt;/button&gt;&lt;button id=&quot;trace-first&quot;&gt;Về đầu&lt;/button&gt;&lt;/div&gt;&lt;p id=&quot;trace-note&quot;&gt;&lt;/p&gt;&lt;div class=&quot;table-scroll&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Vị trí&lt;/th&gt;&lt;th&gt;Ký tự&lt;/th&gt;&lt;th&gt;Ngăn xếp: đáy → đỉnh&lt;/th&gt;&lt;th&gt;Giải thích&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;trace-body&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;card&quot;&gt;&lt;div class=&quot;card-head&quot;&gt;&lt;h2&gt;Đối chiếu trước và sau&lt;/h2&gt;&lt;small&gt;Ghi lại trạng thái, không chỉ chụp nút bấm&lt;/small&gt;&lt;/div&gt;&lt;div class=&quot;comparison&quot;&gt;&lt;div&gt;&lt;h3&gt;Trước thao tác&lt;/h3&gt;&lt;pre id=&quot;before&quot;&gt;Chưa thực hiện thao tác.&lt;/pre&gt;&lt;/div&gt;&lt;div&gt;&lt;h3&gt;Sau thao tác&lt;/h3&gt;&lt;pre id=&quot;after&quot;&gt;Chưa thực hiện thao tác.&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;card&quot;&gt;&lt;div class=&quot;card-head&quot;&gt;&lt;h2&gt;Nhật ký thao tác&lt;/h2&gt;&lt;small id=&quot;history-count&quot;&gt;0 thao tác&lt;/small&gt;&lt;/div&gt;&lt;p class=&quot;muted&quot;&gt;Giữ tối đa 200 thao tác gần nhất trong tab này. Nhật ký không tự lưu khi đóng hoặc tải lại trang.&lt;/p&gt;&lt;div class=&quot;table-scroll&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Lần&lt;/th&gt;&lt;th&gt;Thao tác&lt;/th&gt;&lt;th&gt;Kết quả&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;history&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;footer&gt;Thuật toán theo mục 5.3–5.5 của Chương 5. Giao diện, kiểm tra đầu vào và bài tập mở rộng là phần thực hành bổ sung.&lt;/footer&gt;
+&lt;/main&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+</code></pre></details><details id="code-15"><summary>web/style.css · 703 dòng</summary><button class="copy" type="button">Sao chép mã</button><pre><code>:root {
+    --ink:#183044;
+    --muted:#5a6b77;
+    --line:#d7e1e5;
+    --paper:#fff;
+    --bg:#f1f5f5;
+    --accent:#007267;
+    --soft:#e9f5f1;
+    --warn:#7b4e13;
+    --bad:#a1332e
+}
+* {
+    box-sizing:border-box
+}
+body {
+    margin:0;
+    color:var(--ink);
+    background:var(--bg);
+    font:16px/1.6 &#x27;Segoe UI&#x27;,Arial,sans-serif
+}
+button,input {
+    font:inherit
+}
+button {
+    cursor:pointer;
+    border:1px solid #b7cdd0;
+    border-radius:7px;
+    padding:9px 13px;
+    background:#fff;
+    color:var(--ink);
+    font-weight:600;
+    line-height:1.4
+}
+button:hover:not(:disabled) {
+    border-color:var(--accent);
+    background:var(--soft)
+}
+button:disabled {
+    opacity:.5;
+    cursor:default
+}
+button:focus-visible,input:focus-visible,a:focus-visible {
+    outline:3px solid #be852a;
+    outline-offset:3px
+}
+input {
+    padding:9px 12px;
+    border:1px solid #b6c9cf;
+    border-radius:6px;
+    color:var(--ink);
+    width:100%;
+    background:#fff;
+    min-width:0
+}
+label {
+    font-size:13px;
+    font-weight:600;
+    display:flex;
+    flex-direction:column;
+    gap:5px
+}
+label input[type=number] {
+    width:118px
+}
+.grow {
+    flex:1;
+    min-width:180px
+}
+h1 {
+    font-size:clamp(26px,3vw,38px);
+    line-height:1.25;
+    letter-spacing:-.03em;
+    margin:8px 0 10px
+}
+h2 {
+    font-size:18px;
+    margin:0;
+    line-height:1.35
+}
+h3 {
+    font-size:14px;
+    margin:0 0 8px
+}
+p {
+    margin:8px 0 15px
+}
+small {
+    font-size:12px;
+    color:var(--muted)
+}
+code,pre {
+    font-family:Consolas,&#x27;Liberation Mono&#x27;,monospace
+}
+code {
+    background:#ebf0f2;
+    padding:1px 4px;
+    border-radius:3px;
+    font-size:.88em
+}
+pre {
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+    font-size:14px;
+    margin:0;
+    line-height:1.75
+}
+.skip {
+    position:fixed;
+    top:-100px;
+    left:10px;
+    background:white;
+    padding:12px;
+    z-index:100
+}
+.skip:focus {
+    top:10px
+}
+[hidden] {
+    display:none!important
+}
+header {
+    background:#fff;
+    border-bottom:1px solid var(--line);
+    padding:18px 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:18px
+}
+.brand {
+    display:flex;
+    align-items:center;
+    gap:15px
+}
+.brand strong {
+    display:block;
+    font-size:18px
+}
+.brand small {
+    display:block
+}
+.chapter {
+    width:48px;
+    height:52px;
+    background:var(--ink);
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-size:25px;
+    font-weight:700;
+    border-radius:8px
+}
+.badges {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap
+}
+.badges span {
+    padding:5px 10px;
+    border-radius:50px;
+    border:1px solid var(--line);
+    font-size:12px
+}
+#language {
+    background:var(--soft);
+    color:var(--accent);
+    font-weight:700
+}
+.badges button {
+    font-size:12px
+}
+.layout {
+    display:grid;
+    grid-template-columns:240px minmax(0,1fr);
+    max-width:1680px;
+    margin:auto
+}
+aside {
+    padding:28px 20px;
+    border-right:1px solid var(--line);
+    background:#f9fbfb
+}
+aside nav {
+    display:grid;
+    gap:6px;
+    margin:16px 0 25px
+}
+aside nav button {
+    text-align:left;
+    display:flex;
+    gap:10px;
+    font-size:13px;
+    background:transparent;
+    border-color:transparent
+}
+aside nav button[aria-pressed=true] {
+    background:var(--ink);
+    color:white;
+    border-color:var(--ink)
+}
+.overline {
+    font-size:11px;
+    letter-spacing:.1em;
+    font-weight:700;
+    color:var(--accent)
+}
+.aside-note {
+    border-top:1px solid var(--line);
+    padding-top:18px;
+    margin-top:20px;
+    font-size:13px
+}
+.aside-note p {
+    color:var(--muted)
+}
+aside&gt;button {
+    display:block;
+    width:100%;
+    margin-top:10px;
+    font-size:12px
+}
+.aside-foot {
+    display:block;
+    margin-top:18px;
+    line-height:1.6
+}
+.subtle {
+    color:var(--muted);
+    background:transparent
+}
+main {
+    min-width:0;
+    padding:28px 30px
+}
+.heading {
+    margin-bottom:22px
+}
+.heading p {
+    color:var(--muted);
+    max-width:850px
+}
+.workspace {
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:22px
+}
+.config,.controls {
+    display:flex;
+    align-items:flex-end;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:16px 19px;
+    border-bottom:1px solid var(--line)
+}
+.config {
+    background:#f5f9f8
+}
+.controls:last-child {
+    border:0
+}
+.secondary {
+    background:#fbfcfc
+}
+.controls small,.config small {
+    max-width:520px;
+    align-self:center
+}
+.help {
+    font-size:12px;
+    align-self:center;
+    color:var(--muted)
+}
+.homework {
+    background:#fcf8f0;
+    align-items:center
+}
+.homework .tag {
+    background:#f0dfbf;
+    color:#71490d;
+    font-size:11px;
+    font-weight:700;
+    padding:5px 8px;
+    border-radius:4px
+}
+.panel-note {
+    padding:8px 19px;
+    margin:0;
+    font-size:13px;
+    color:var(--muted)
+}
+.card {
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fff;
+    padding:20px;
+    margin-bottom:20px;
+    min-width:0
+}
+.card-head {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    border-bottom:1px solid #e4ebed;
+    padding-bottom:12px;
+    margin-bottom:18px
+}
+.card-head small {
+    max-width:260px
+}
+.workgrid {
+    display:grid;
+    grid-template-columns:minmax(0,1.4fr) minmax(310px,1fr);
+    gap:18px
+}
+.workgrid .card {
+    margin-bottom:20px
+}
+.stat {
+    font-size:12px;
+    background:var(--soft);
+    padding:4px 9px;
+    border-radius:5px;
+    font-weight:650;
+    white-space:nowrap
+}
+.muted {
+    font-size:12px;
+    color:var(--muted);
+    margin-top:14px
+}
+.chain {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:30px 0 15px;
+    overflow-x:auto;
+    min-height:160px
+}
+.node {
+    flex:none;
+    min-width:79px;
+    border:2px solid #8cb2b1;
+    border-radius:7px;
+    position:relative;
+    display:flex;
+    background:#fff;
+    animation:arrive .3s ease
+}
+.node strong {
+    font-size:20px;
+    padding:13px 15px;
+    min-width:55px;
+    text-align:center
+}
+.node .link-field {
+    background:#ecf6f2;
+    border-left:1px solid #a4c8bd;
+    display:grid;
+    place-items:center;
+    padding:4px;
+    font-size:10px;
+    border-radius:0 6px 6px 0
+}
+.node .node-label {
+    position:absolute;
+    top:-25px;
+    left:0;
+    font-size:11px;
+    color:var(--accent);
+    white-space:nowrap
+}
+.edge {
+    font-size:24px;
+    color:var(--accent);
+    flex:none
+}
+.terminal {
+    color:var(--muted);
+    font-size:12px
+}
+.empty {
+    padding:32px 20px;
+    border:1px dashed #b4c8d0;
+    background:#f6f9fa;
+    color:var(--muted);
+    text-align:center;
+    border-radius:8px;
+    margin:15px 0
+}
+.stack-tower {
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    max-width:240px;
+    margin:20px auto;
+    border:3px solid #aec9c9;
+    border-top:0;
+    border-radius:0 0 10px 10px;
+    padding:10px 12px 13px;
+    max-height:420px;
+    overflow-y:auto;
+    min-height:150px
+}
+.stack-item {
+    background:var(--soft);
+    border:1px solid #acccbf;
+    padding:9px 15px;
+    text-align:center;
+    font:700 20px/1.4 Consolas,monospace;
+    border-radius:5px;
+    animation:arrive .3s ease;
+    position:relative
+}
+.stack-item.top {
+    background:#caeadb;
+    border:2px solid var(--accent)
+}
+.stack-item span {
+    font:600 10px &#x27;Segoe UI&#x27;,Arial;
+    display:block;
+    color:var(--accent)
+}
+.physical {
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    padding:10px 0 22px;
+    row-gap:30px
+}
+.cell {
+    position:relative;
+    min-width:57px;
+    padding:13px 9px;
+    text-align:center;
+    border:2px dashed #cad4da;
+    border-radius:6px;
+    color:#8798a1;
+    background:#f8fafa;
+    font:700 19px Consolas,monospace
+}
+.cell.active {
+    border:2px solid #8db4a8;
+    color:var(--ink);
+    background:#e9f5ee
+}
+.cell.front {
+    border-color:var(--accent);
+    box-shadow:0 0 0 2px #c5e2d8
+}
+.cell small {
+    position:absolute;
+    top:50px;
+    left:0;
+    right:0;
+    font:10px &#x27;Segoe UI&#x27;,Arial;
+    white-space:nowrap
+}
+.cell em {
+    display:block;
+    font:700 9px &#x27;Segoe UI&#x27;,Arial;
+    color:var(--accent);
+    margin-bottom:4px
+}
+.logical {
+    padding:12px 14px;
+    border:1px solid #cfdfe0;
+    background:#f6faf9;
+    border-radius:6px;
+    font-size:15px;
+    overflow-wrap:anywhere
+}
+.metrics {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:15px 0;
+    font:13px/1.6 Consolas,monospace
+}
+.metrics span {
+    padding:6px 9px;
+    background:#edf3f5;
+    border-radius:4px
+}
+.explanation #feedback {
+    font-weight:650;
+    padding:12px 15px;
+    background:var(--soft);
+    border-radius:6px;
+    color:#185849
+}
+.explanation #feedback.error {
+    background:#fcedea;
+    color:var(--bad)
+}
+.result {
+    margin:12px 0;
+    background:#eff3f5;
+    padding:12px 15px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    font:14px/1.6 Consolas,monospace;
+    overflow-wrap:anywhere
+}
+ol {
+    padding-left:23px;
+    font-size:14px
+}
+ol li {
+    padding:5px 0
+}
+.comparison {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px
+}
+.comparison&gt;div {
+    padding:15px;
+    background:#f7fafb;
+    border:1px solid #e0e8eb;
+    border-radius:8px
+}
+.table-scroll {
+    overflow:auto;
+    max-height:410px
+}
+table {
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+    text-align:left
+}
+th {
+    background:#f0f5f5;
+    font-weight:650
+}
+th,td {
+    padding:10px 12px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top
+}
+tr.trace-active td {
+    background:#e1f1e9
+}
+tr.trace-error td {
+    color:var(--bad)
+}
+.trace-controls {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap
+}
+.trace-controls button {
+    font-size:13px
+}
+#trace-note {
+    font-size:14px;
+    padding:12px;
+    background:var(--soft);
+    border-radius:6px
+}
+#connection {
+    padding:16px 18px;
+    margin-bottom:18px;
+    border-left:4px solid var(--bad);
+    background:#fcedea;
+    font-size:14px
+}
+footer {
+    font-size:12px;
+    color:var(--muted);
+    text-align:center;
+    padding:10px 0 25px
+}
+@keyframes arrive {
+    from {
+        opacity:.35;
+        transform:translateY(-4px)
+    }
+    to {
+        opacity:1;
+        transform:translateY(0)
+    }
+}
+@media(prefers-reduced-motion:reduce) {
+    * {
+        animation:none!important;
+        scroll-behavior:auto!important
+    }
+}
+@media(max-width:1150px) {
+    .workgrid {
+        grid-template-columns:1fr
+    }
+    main {
+        padding:25px 22px
+    }
+    .layout {
+        grid-template-columns:210px minmax(0,1fr)
+    }
+    aside {
+        padding-inline:14px
+    }
+}
+@media(max-width:760px) {
+    header {
+        padding:15px;
+        flex-wrap:wrap
+    }
+    .brand strong {
+        font-size:16px
+    }
+    .brand small {
+        font-size:11px
+    }
+    .layout {
+        display:block
+    }
+    aside {
+        border-right:0;
+        border-bottom:1px solid var(--line);
+        padding:14px
+    }
+    aside .overline,.aside-note,.aside-foot {
+        display:none
+    }
+    aside nav {
+        grid-template-columns:1fr 1fr;
+        margin:0 0 10px
+    }
+    aside nav button {
+        font-size:12px
+    }
+    aside&gt;button {
+        display:inline-block;
+        width:auto;
+        margin:5px 5px 0 0
+    }
+    main {
+        padding:22px 13px
+    }
+    .card {
+        padding:16px
+    }
+    .config,.controls {
+        padding:14px;
+        gap:8px
+    }
+    .controls button {
+        font-size:13px
+    }
+    .comparison {
+        grid-template-columns:1fr
+    }
+    .workgrid {
+        gap:0
+    }
+    .card-head {
+        flex-wrap:wrap
+    }
+    .homework label input {
+        width:85px
+    }
+    .badges button {
+        font-size:11px
+    }
+    .grow {
+        min-width:100%
+    }
+}
+@media print {
+    aside,header,.workspace,.trace-controls {
+        display:none
+    }
+    .layout {
+        display:block
+    }
+    main {
+        padding:0
+    }
+    .workgrid,.comparison {
+        display:block
+    }
+    .card {
+        break-inside:avoid
+    }
+    .table-scroll {
+        max-height:none;
+        overflow:visible
+    }
+    body {
+        background:white;
+        font-size:11pt
+    }
+}
+aside nav button[aria-pressed=true]:hover {
+    background:var(--ink);
+    color:#fff;
+    border-color:var(--ink)
+}
+</code></pre></details></section></main><script>document.querySelectorAll('.copy').forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(b.nextElementSibling.textContent);b.textContent='Đã sao chép';}catch(e){const r=document.createRange();r.selectNodeContents(b.nextElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Đã chọn mã; nhấn Ctrl+C hoặc Command+C';}});document.querySelectorAll('.toc a').forEach(a=>a.onclick=()=>{document.getElementById(a.hash.slice(1)).open=true;});</script></body></html>
